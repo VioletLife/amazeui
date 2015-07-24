@@ -15,7 +15,7 @@
    Component: Thumbnail
  ============================================================================ */
 
-.am-thumbnail {
+.@{ns}thumbnail {
   //display: inline-block;
   display: block;
   padding: @thumbnail-padding;
@@ -23,7 +23,7 @@
   background-color: @thumbnail-bg;
   border: 1px solid @thumbnail-border;
   border-radius: @thumbnail-border-radius;
-  .transition(all .2s ease-in-out);
+  transition: all .2s ease-in-out;
   .hook-thumbnail;
 
   > img,
@@ -34,19 +34,29 @@
   }
 
   // Add a hover state for linked versions only
-  a&:hover,
-  a&:focus,
-  a&.active {
+  a.@{ns}thumbnail:hover,
+  a.@{ns}thumbnail:focus,
+  a.@{ns}thumbnail.active {
     border-color: @thumbnail-hover-border;
     background-color: @thumbnail-hover-bg;
     .hook-thumbnail-hover;
   }
 }
 
+// Image width
+.@{ns}thumbnail {
+  img&,
+  > img,
+  a > img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 
 /* Image caption */
 
-.am-thumbnail-caption {
+.@{ns}thumbnail-caption {
   margin: 0;
   padding: @thumbnail-caption-padding;
   color: @thumbnail-caption-color;
@@ -58,6 +68,18 @@
   }
 }
 
+// Thumbnail list
+.@{ns}thumbnails {
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+
+  > li {
+    padding: 0 .5rem 1rem .5rem;
+  }
+
+  .hook-thumbnails;
+}
+
 
 // Hooks
 // =============================================================================
@@ -65,3 +87,4 @@
 .hook-thumbnail() {}
 .hook-thumbnail-hover() {}
 .hook-thumbnail-caption() {}
+.hook-thumbnails() {}

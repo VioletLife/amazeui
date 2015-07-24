@@ -1,16 +1,16 @@
 'use strict';
 
-require('./core');
-require('./ui.collapse');
 var $ = require('jquery');
-var UI = $.AMUI;
+var UI = require('../../../js/core');
+require('../../../js/ui.collapse');
 
 function accordionInit() {
   var $accordion = $('[data-am-widget="accordion"]');
   var selector = {
     item: '.am-accordion-item',
     title: '.am-accordion-title',
-    content: '.am-accordion-content'
+    body: '.am-accordion-bd',
+    disabled: '.am-disabled'
   };
 
   $accordion.each(function(i, item) {
@@ -18,32 +18,34 @@ function accordionInit() {
     var $title = $(item).find(selector.title);
 
     $title.on('click.accordion.amui', function() {
-      var $content = $(this).next(selector.content);
+      var $collapse = $(this).next(selector.body);
       var $parent = $(this).parent(selector.item);
-      var data = $content.data('amui.collapse');
+      var data = $collapse.data('amui.collapse');
+
+      if ($parent.is(selector.disabled)) {
+        return;
+      }
 
       $parent.toggleClass('am-active');
 
       if (!data) {
-        $content.collapse();
+        $collapse.collapse();
       } else {
-        $content.collapse('toggle');
+        $collapse.collapse('toggle');
       }
 
       !options.multiple &&
       $(item).children('.am-active').
-        not($parent).removeClass('am-active').
-        find('.am-accordion-content.am-in').collapse('close');
+        not($parent).not(selector.disabled).removeClass('am-active').
+        find(selector.body + '.am-in').collapse('close');
     });
   });
 }
 
 // Init on DOM ready
-$(function() {
-  accordionInit();
-});
+$(accordionInit);
 
-module.exports = $.AMUI.accordion = {
-  VERSION: '2.0.0',
+module.exports = UI.accordion = {
+  VERSION: '2.1.0',
   init: accordionInit
 };

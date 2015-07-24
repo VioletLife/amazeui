@@ -1,50 +1,20 @@
-# CSS
+---
+id: css
+title: CSS
+titleEn: CSS
+permalink: css.html
+next: css/normalize.html
 ---
 
-## 关于命名空间
-
-<div class="am-alert am-alert-danger">
-  似乎有些人看着 <code>.am</code> 有些不顺眼，在这里专门做一下说明。
-</div>
-
-可能有人不知道命名空间是什么东西，和 [YUI](https://github.com/yui/yui3/blob/master/build/app-transitions-css/app-transitions-css.css) 中的 `yui`、[Pure](http://purecss.io/) 中的 `pure` 一样，Amaze UI 里的 `am` 就是命名空间。
-
-命名空间使类名变得冗长，可为什么还要加呢？
-
-### 目的：防御与无侵入！
-
-更直白的话说，__我不犯人，也不让人犯我__。
-
-CSS 多基于 Class 应用样式，我们不愿看到：
-
-- __多个框架共存__时，按照我们的 CSS 编写的 HTML 结构应用了其他框架的样式；
-- __从第三方抓取的 HTML__ 存在 class 相同的元素，意外地应用了 Amaze UI 的样式；
-- __用户编写自己的代码时，意外的覆盖了框架中的样式；__
-- __多人协作开发__时，发生命名冲突，样式相互影响；__
-- __第三方服务__（如分享按钮、评论组件）会向页面中插入一些样式，可能会意外的应用到我们编写的结构；
-- ……
-
-Amaze UI 内部在用，平台上的开发者也在用，命名空间能够有效地减少这些问题。
-
-仅限于此，与品牌宣传什么的扯不上关系。
-
-### 何去何从？
-
-<dl>
-  <dt>命名空间会被删除吗？</dt>
-  <dd>一般不会，不过也说不定，不过那也是很久很久以后的事。</dd>
-  <dt>我真的不喜欢命名空间这个东西，怎么办？</dt>
-  <dd>未来版本会尝试自定义命名空间的可能性。你也可以尝试自己在编译的过程中把命名空间去掉，前端编译工具那么多，何不试试？不然葱油拌？还是飘香拌?</dd>
-</dl>
-
-妹子只能说这么多了，再往下就只能说：你不懂我，我不怪你。
+# CSS
+---
 
 ## CSS 概述
 
 Amaze UI CSS 大致分为四部分。
 
 <div class="am-g">
-  <div class="col-md-6">
+  <div class="am-u-md-6">
     <div class="am-panel am-panel-default">
       <div class="am-panel-hd">基础（默认）样式</div>
       <div class="am-panel-bd">
@@ -52,16 +22,16 @@ Amaze UI CSS 大致分为四部分。
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="am-u-md-6">
     <div class="am-panel am-panel-default">
       <div class="am-panel-hd">布局样式</div>
       <div class="am-panel-bd">
-        包含用于布局的 Grid、Block Grid，以及一些辅助 Class。
+        包含用于布局的 Grid、AVG Grid，以及一些辅助 Class。
       </div>
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="am-u-md-6">
     <div class="am-panel am-panel-default">
       <div class="am-panel-hd">元素样式</div>
       <div class="am-panel-bd">
@@ -70,7 +40,7 @@ Amaze UI CSS 大致分为四部分。
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="am-u-md-6">
     <div class="am-panel am-panel-default">
       <div class="am-panel-hd">页面组件</div>
       <div class="am-panel-bd">
@@ -80,6 +50,25 @@ Amaze UI CSS 大致分为四部分。
   </div>
 </div>
 
+### 浏览器前缀
+
+Amaze UI 2.0 开始移除了所有标准属性的浏览器前缀，构建时通过 [AutoPrefixer](https://github.com/postcss/autoprefixer) 自动添加。
+
+当前的 AutoPrefixer 浏览器支持设置为：
+
+```javascript
+[
+  'ie >= 8',
+  'ie_mob >= 10',
+  'ff >= 30',
+  'chrome >= 34',
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 2.3',
+  'bb >= 10'
+]
+```
 ## 响应式断点
 
 <table class="am-table am-table-bd am-table-striped">
@@ -168,10 +157,10 @@ Amaze UI 在 HTML5 下开发，没有测试其他 DOCTYPE，使用之前确保�
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-  <link rel="apple-touch-icon-precomposed" href="{{assets}}i/app-icon72x72@2x.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
 
   <!-- Tile icon for Win8 (144x144 + tile color) -->
-  <meta name="msapplication-TileImage" content="{{assets}}i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
   <meta name="msapplication-TileColor" content="#0e90d2">
 
   <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
@@ -179,11 +168,21 @@ Amaze UI 在 HTML5 下开发，没有测试其他 DOCTYPE，使用之前确保�
   <link rel="canonical" href="http://www.example.com/">
   -->
 
-  <link rel="stylesheet" href="{{assets}}css/amazeui.min.css">
-  <link rel="stylesheet" href="{{assets}}css/app.css">
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
 ...
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
 </body>
 </html>
 ```
@@ -371,8 +370,46 @@ __不要单独使用、直接在里面编写样式__！！！
 }
 ```
 
-- 使用网格系统时，只添加 `.col-sm-*` class，移除其他断点的 class。
+- 使用网格系统时，只添加 `.am-u-sm-*` class，移除其他断点的 class。
 
 至此，布局层的响应式被禁用了（[参考示例](/examples/non-responsive.html)）。
 
 不过，这仅仅是个开始，一些组件的样式细节可能还需要调整，只能陪你到这了……
+
+## 关于命名空间
+
+<div class="am-alert am-alert-danger">
+  似乎有些人看着 <code>.am</code> 有些不顺眼，在这里专门做一下说明。
+</div>
+
+可能有人不知道命名空间是什么东西，和 [YUI](https://github.com/yui/yui3/blob/master/build/app-transitions-css/app-transitions-css.css) 中的 `yui`、[Pure](http://purecss.io/) 中的 `pure` 一样，Amaze UI 里的 `am` 就是命名空间。
+
+命名空间使类名变得冗长，可为什么还要加呢？
+
+### 目的：防御与无侵入！
+
+更直白的话说，__我不犯人，也不让人犯我__。
+
+CSS 多基于 Class 应用样式，我们不愿看到：
+
+- __多个框架共存__时，按照我们的 CSS 编写的 HTML 结构应用了其他框架的样式；
+- __从第三方抓取的 HTML__ 存在 class 相同的元素，意外地应用了 Amaze UI 的样式；
+- __用户编写自己的代码时，意外的覆盖了框架中的样式；__
+- __多人协作开发__时，发生命名冲突，样式相互影响；__
+- __第三方服务__（如分享按钮、评论组件）会向页面中插入一些样式，可能会意外的应用到我们编写的结构；
+- ……
+
+Amaze UI 内部在用，平台上的开发者也在用，命名空间能够有效地减少这些问题。
+
+仅限于此，与品牌宣传什么的扯不上关系。
+
+### 何去何从？
+
+<dl>
+  <dt>命名空间会被删除吗？</dt>
+  <dd>一般不会，不过也说不定，不过那也是很久很久以后的事。</dd>
+  <dt>我真的不喜欢命名空间这个东西，怎么办？</dt>
+  <dd>未来版本会尝试自定义命名空间的可能性。你也可以尝试自己在编译的过程中把命名空间去掉，前端编译工具那么多，何不试试？不然葱油拌？还是飘香拌?</dd>
+</dl>
+
+妹子只能说这么多了，再往下就只能说：你不懂我，我不怪你。

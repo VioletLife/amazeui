@@ -20,20 +20,20 @@
    Component: Tabs Plugin
  ============================================================================ */
 
-.am-tabs {
+.@{ns}tabs {
   .hook-tabs;
 }
 
-.am-tabs-bd {
+.@{ns}tabs-bd {
   position: relative;
   overflow: hidden;
   border: 1px solid #ddd;
   border-top: none;
   z-index: 100;
-  .transition(height 0.3s);
+  transition: height .3s;
   .hook-tabs-bd;
 
-  .am-tab-panel {
+  .@{ns}tab-panel {
     position: absolute;
     top: 0;
     z-index: 99;
@@ -41,28 +41,43 @@
     width: 100%;
     padding: 10px 10px 15px;
     visibility: hidden;
-    .transition(all 0.3s);
-    .translate(-100%);
+    transition: transform 0.3s;
+    transform: translateX(-100%);
     .hook-tab-panel;
 
     * {
       -webkit-user-drag: none;
-      user-drag: none;
     }
 
-    &.am-active {
+    &.@{ns}active {
       position: relative;
       z-index: 100;
       visibility: visible;
-      .translate();
+      transform: translateX(0);
 
-      & ~ .am-tab-panel {
-        .translate(100%);
+      & ~ .@{ns}tab-panel {
+        transform: translateX(100%);
       }
     }
   }
+
+  // nested Tabs
+  .@{ns}tabs-bd {
+    border: none;
+  }
 }
 
+// fade animation in React version
+.@{ns}tabs-fade {
+  .@{ns}tab-panel {
+    opacity: 0;
+    transition: opacity .25s linear;
+
+    &.@{ns}in {
+      opacity: 1;
+    }
+  }
+}
 
 // HOOKS
 // =============================================================================

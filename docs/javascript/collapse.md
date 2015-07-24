@@ -1,3 +1,13 @@
+---
+id: collapse
+title: 折叠面板
+titleEn: Collapse
+prev: javascript/button.html
+next: javascript/dropdown.html
+source: js/ui.collapse.js
+doc: docs/javascript/collapse.md
+---
+
 # Collapse
 ---
 
@@ -140,7 +150,7 @@
 
 ### 折叠菜单
 
-使用时注意目标元素外面应该有一个容器，以便动画执行时计算高端。
+使用时注意目标元素外面应该有一个容器，以便动画执行时计算高度。
 
 `````html
 <button class="am-btn am-btn-primary" data-am-collapse="{target: '#collapse-nav'}">Menu <i class="am-icon-bars"></i></button>
@@ -199,7 +209,7 @@ $('#myCollapse').collapse({
 
 #### 选项
 
-<table class="am-table am-table-bd am-table-striped">
+<table class="am-table am-table-bordered am-table-striped">
   <thead>
   <tr>
     <th style="width: 60px;">参数</th>
@@ -227,7 +237,27 @@ $('#myCollapse').collapse({
 
 #### 自定义事件
 
-<table class="am-table am-table-bd am-table-striped">
+自定义事件在**折叠的元素**上触发，以上面的折叠菜单为例，`#collapse-nav` 触发自定义事件：
+
+<script>
+$(function() {
+  $('#collapse-nav').on('open.collapse.amui', function() {
+    console.log('折叠菜单打开了！');
+  }).on('close.collapse.amui', function() {
+    console.log('折叠菜单关闭鸟！');
+  });
+});
+</script>
+
+```js
+$('#collapse-nav').on('open.collapse.amui', function() {
+  console.log('折叠菜单打开了！');
+}).on('close.collapse.amui', function() {
+  console.log('折叠菜单关闭鸟！');
+});
+```
+
+<table class="am-table am-table-bordered am-table-striped">
   <thead>
   <tr>
     <th>事件</th>
@@ -254,3 +284,9 @@ $('#myCollapse').collapse({
   </tr>
   </tbody>
 </table>
+
+## 注意事项
+
+**不要在折叠内容的容器上设置垂直的 `margin`/`padding`/`border` 样式。**
+
+jQuery 计算元素高度的方式有点奇葩，暂时只能通过上面的方式规避。

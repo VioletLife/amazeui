@@ -11,27 +11,23 @@
    Component: PureView Plugin
  ============================================================================ */
 
-.am-pureview {
+.@{ns}pureview {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   right: 0;
+  z-index: @z-index-pureview;
   width: 100%;
   height: 100%;
-  z-index: @z-index-pureview;
   background: rgba(0, 0, 0, 0.95);
-  //display: none;
+  display: none;
   overflow: hidden;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  -o-transition-property: -o-transform;
-  transition-property: transform;
-  .translate3d(0, 100%, 0);
-  .transition-duration(0.4s);
+  transition: transform .3s;
+  transform: translate(0, 100%);
 
-  &.am-active {
-    .translate3d(0, 0, 0);
+  &.@{ns}active {
+    transform: translate(0, 0);
   }
 
   ul,
@@ -43,7 +39,7 @@
   }
 }
 
-.am-pureview-slider {
+.@{ns}pureview-slider {
   overflow: hidden;
   height: 100%;
 
@@ -52,37 +48,42 @@
     width: 100%;
     height: 100%;
     top: 0;
-    .flexbox();
-    .justify-content(center);
-    .align-items(center);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // .flexbox();
+    // .justify-content(center);
+    // .align-items(center);
 
     // fuck legacy browsers
     // https://github.com/allmobilize/amazeui/issues/120
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
+    // GREAT: AutoPrefixer can help us do these dammit things
+    // -webkit-box-align: center;
+    // -webkit-box-pack: center;
 
     vertical-align: middle;
-    .transition(all .3s linear);
+    transition: all .3s linear;
     // .translate3d(-100%);
     z-index: 100;
     visibility: hidden;
 
-    &.am-pureview-slide-prev {
-      .translate3d(-100%);
+    &.@{ns}pureview-slide-prev {
+      transform: translate(-100%, 0);
       // visibility: visible;
       z-index: 109;
     }
 
-    &.am-pureview-slide-next {
-      .translate3d(100%);
+    &.@{ns}pureview-slide-next {
+      transform: translate(100%, 0);
       // visibility: visible;
       z-index: 109;
     }
 
-    &.am-active {
+    &.@{ns}active {
       position: relative;
       z-index: 110;
-      .translate3d();
+      transform: translate(0, 0);
       visibility: visible;
     }
   }
@@ -92,24 +93,27 @@
     z-index: @z-index-pureview + 1;
   }
 
-  .am-pinch-zoom {
+  .@{ns}pinch-zoom {
     position: relative;
     width: 100%;
     // overflow-y: auto;  /* scrollable */
     // -webkit-overflow-scrolling: touch; /* scrollable */
-    .flexbox();
-    .justify-content(center);
-    .align-items(center);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // .flexbox();
+    // .justify-content(center);
+    // .align-items(center);
 
     // fuck legacy browsers
     // https://github.com/allmobilize/amazeui/issues/120
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
+    // -webkit-box-align: center;
+    // -webkit-box-pack: center;
 
     &:after {
       .am-icon-font();
       content: @fa-var-spinner;
-      .am-icon-spin;
+      animation: icon-spin 2s infinite linear;
       font-size: 24px;
       line-height: 24px;
       color: #eee;
@@ -119,6 +123,13 @@
       margin-left: -12px;
       margin-top: -12px;
       z-index: 1;
+    }
+
+    // image loaded
+    &.@{ns}pureview-loaded {
+      &:after {
+        display: none;
+      }
     }
   }
 
@@ -132,24 +143,23 @@
     opacity: 0;
     z-index: 200;
     -webkit-user-drag: none;
-    user-drag: none;
-    .transition(opacity .15s linear);
+    transition: opacity .2s ease-in;
 
-    &.am-img-loaded {
+    &.@{ns}img-loaded {
       opacity: 1;
     }
   }
 }
 
-.am-pureview-direction {
+.@{ns}pureview-direction {
   position: absolute;
   top: 50%;
   width: 100%;
   margin-top: -18px !important;
   z-index: @z-index-pureview + 2;
 
-  .am-touch &,
-  .am-pureview-only & {
+  .@{ns}touch &,
+  .@{ns}pureview-only & {
     display: none;
   }
 
@@ -171,7 +181,6 @@
     z-index: @z-index-pureview + 5;
 
     &:before {
-      .am-icon-font;
       content: @fa-var-chevron-circle-left;
       line-height: 36px;
       font-size: 24px;
@@ -182,11 +191,11 @@
     }
   }
 
-  .am-pureview-prev {
+  .@{ns}pureview-prev {
     left: 15px;
   }
 
-  .am-pureview-next {
+  .@{ns}pureview-next {
     right: 15px;
 
     a:before {
@@ -196,7 +205,7 @@
 
 }
 
-.am-pureview-bar {
+.@{ns}pureview-bar {
   position: absolute;
   bottom: 0;
   height: 45px;
@@ -206,21 +215,21 @@
   line-height: 45px;
   padding: 0 10px;
   font-size: 14px;
-  .flexbox();
+  display: flex;
 
-  .am-pureview-title {
+  .@{ns}pureview-title {
     .text-overflow(block);
     margin-left: 6px;
-    .flex(1);
+    flex: 1;
   }
 
-  .am-pureview-total {
+  .@{ns}pureview-total {
     font-size: 10px;
     line-height: 48px;
   }
 }
 
-.am-pureview-actions {
+.@{ns}pureview-actions {
   position: absolute;
   z-index: @z-index-pureview + 10;
   left: 0;
@@ -250,18 +259,18 @@
   }
 }
 
-.am-pureview-bar,
-.am-pureview-actions {
+.@{ns}pureview-bar,
+.@{ns}pureview-actions {
   opacity: 0;
-  .transition(0.15s);
+  transition: all .15s;
   z-index: @z-index-pureview + 10;
 
-  .am-pureview-bar-active & {
+  .@{ns}pureview-bar-active & {
     opacity: 1;
   }
 }
 
-.am-pureview-nav {
+.@{ns}pureview-nav {
   position: absolute;
   bottom: 15px;
   left: 0;
@@ -269,7 +278,7 @@
   text-align: center;
   z-index: @z-index-pureview + 11;
 
-  .am-pureview-bar-active & {
+  .@{ns}pureview-bar-active & {
     display: none;
   }
 
@@ -286,7 +295,7 @@
     cursor: pointer;
   }
 
-  .am-active {
+  .@{ns}active {
     background: #fff;
     background: rgba(255, 255, 255, 0.9);
   }
@@ -297,6 +306,6 @@
 }
 
 // body
-.am-pureview-active {
+.@{ns}pureview-active {
   overflow: hidden;
 }

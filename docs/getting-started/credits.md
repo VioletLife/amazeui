@@ -1,6 +1,8 @@
 # Credits 鸣谢
 ---
 
+**本页面转移至[Wiki](https://github.com/allmobilize/amazeui/wiki/Credits)，不再更新！**
+
 对于 Amaze UI，我们不是创造者。
 
 Amaze UI 的诞生，依托于 GitHub 及其他技术社区上一些优秀的资源；Amaze UI 的成长，则离不开用户的支持。
@@ -18,7 +20,13 @@ Amaze UI 使用 [WebStorm](http://www.jetbrains.com/webstorm/) 开发，感谢 [
 
 ## 感谢所有媛猿员
 
-整理过程难免有遗漏，请见谅！在此拜谢！（排名不分先后）
+整理过程难免有遗漏，请见谅！（排名不分先后）
+
+一般我们会在评论和 Issue 中直接致谢，无法一一整理到这里，**你也可以在 `docs/getting-started/credits.md` 加上自己的名字 PR 给我们**。
+
+### v2.0.0
+
+[@baryon](https://github.com/baryon)、[@Troevil](https://github.com/Troevil)、[@鸿鹏Holy](http://weibo.com/2061820421)、[@方宇超](http://t.qq.com/YNFYC1990)、[@相](http://t.qq.com/xiangsubo)、[@yinheli](https://github.com/yinheli)、[@hawkcraw](http://t.qq.com/hawkcraw)……
 
 ### v1.0.0
 

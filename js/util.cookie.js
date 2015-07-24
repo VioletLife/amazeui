@@ -1,7 +1,6 @@
 'use strict';
 
-var $ = require('jquery');
-require('./core');
+var UI = require('./core');
 
 var cookie = {
   get: function(name) {
@@ -27,7 +26,7 @@ var cookie = {
       encodeURIComponent(value);
 
     if (expires instanceof Date) {
-      cookieText += '; expires=' + expires.toGMTString();
+      cookieText += '; expires=' + expires.toUTCString();
     }
 
     if (path) {
@@ -50,6 +49,6 @@ var cookie = {
   }
 };
 
-$.AMUI.utils.cookie = cookie;
+UI.utils = UI.utils || {};
 
-module.exports = cookie;
+module.exports = UI.utils.cookie = cookie;

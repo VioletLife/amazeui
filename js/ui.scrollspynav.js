@@ -38,7 +38,8 @@ ScrollSpyNav.DEFAULTS = {
     active: 'am-active'
   },
   closest: false,
-  smooth: true
+  smooth: true,
+  offsetTop: 0
 };
 
 ScrollSpyNav.prototype.process = function() {
@@ -85,9 +86,10 @@ ScrollSpyNav.prototype.process = function() {
 
 ScrollSpyNav.prototype.scrollProcess = function() {
   var $links = this.$links;
+  var options = this.options;
 
   // smoothScroll
-  if (this.options.smooth) {
+  if (options.smooth && $.fn.smoothScroll) {
     $links.on('click', function(e) {
       e.preventDefault();
 
@@ -98,41 +100,21 @@ ScrollSpyNav.prototype.scrollProcess = function() {
         return;
       }
 
-      $(window).smoothScroll({position: $target.offset().top});
+      var offsetTop = options.offsetTop &&
+        !isNaN(parseInt(options.offsetTop)) && parseInt(options.offsetTop) || 0;
+
+      $(window).smoothScroll({position: $target.offset().top - offsetTop});
     });
   }
 };
 
 // ScrollSpyNav Plugin
-function Plugin(option) {
-  return this.each(function() {
-    var $this = $(this);
-    var data = $this.data('am.scrollspynav');
-    var options = typeof option == 'object' && option;
-
-    if (!data) {
-      $this.data('am.scrollspynav', (data = new ScrollSpyNav(this, options)));
-    }
-
-    if (typeof option == 'string') {
-      data[option]();
-    }
-  });
-}
-
-$.fn.scrollspynav = Plugin;
+UI.plugin('scrollspynav', ScrollSpyNav);
 
 // Init code
-$(function() {
-  $('[data-am-scrollspy-nav]').each(function() {
-    var $this = $(this);
-    var options = UI.utils.options($this.attr('data-am-scrollspy-nav'));
-
-    Plugin.call($this, options);
-  });
+UI.ready(function(context) {
+  $('[data-am-scrollspy-nav]', context).scrollspynav();
 });
-
-$.AMUI.scrollspynav = ScrollSpyNav;
 
 module.exports = ScrollSpyNav;
 

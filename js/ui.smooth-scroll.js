@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var UI = require('./core');
 var rAF = UI.utils.rAF;
+var cAF = UI.utils.cancelAF;
 
 /**
  * Smooth Scroll
@@ -68,7 +69,7 @@ var SmoothScroll = function(element, options) {
 
   // start rendering away! note the function given to frame
   // is named "render" so we can reference it again further down
-  rAF(function render(now) {
+  function render(now) {
     if (!smoothScrollInProgress) {
       return;
     }
@@ -97,11 +98,15 @@ var SmoothScroll = function(element, options) {
     // if we're not done yet, queue up an other frame to render,
     // or clean up
     if (y !== targetY) {
-      rAF(render);
+      cAF(scrollRAF);
+      scrollRAF = rAF(render);
     } else {
+      cAF(scrollRAF);
       abort();
     }
-  });
+  }
+
+  var scrollRAF = rAF(render);
 };
 
 SmoothScroll.DEFAULTS = {
@@ -118,7 +123,7 @@ $.fn.smoothScroll = function(option) {
 $(document).on('click.smoothScroll.amui.data-api', '[data-am-smooth-scroll]',
   function(e) {
     e.preventDefault();
-    var options = UI.utils.parseOptions($(this).attr('data-am-smooth-scroll'));
+    var options = UI.utils.parseOptions($(this).data('amSmoothScroll'));
 
     $(window).smoothScroll(options);
   });

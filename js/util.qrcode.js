@@ -1,5 +1,5 @@
 var $ = require('jquery');
-require('./core');
+var UI = require('./core');
 
 /**
  * @ver 1.1.0
@@ -11,16 +11,17 @@ var qrcodeAlgObjCache = [];
 
 /**
  * 二维码构造函数，主要用于绘制
- * @param  {参数列表} opt 传递参数
- * @return {}
+ * @param  {Object} opt 传递参数
+ * @return {String} qrcode
+ * @constructor
  */
-var qrcode = function(opt) {
+var QRCode = function(opt) {
   if (typeof opt === 'string') { // 只编码ASCII字符串
     opt = {
       text: opt
     };
   }
-  //设置默认参数
+  // 设置默认参数
   this.options = $.extend({}, {
     text: "",
     render: "",
@@ -31,7 +32,7 @@ var qrcode = function(opt) {
     foreground: "#000000"
   }, opt);
 
-  //使用QRCodeAlg创建二维码结构
+  // 使用QRCodeAlg创建二维码结构
   var qrCodeAlg = null;
   for (var i = 0, l = qrcodeAlgObjCache.length; i < l; i++) {
     if (qrcodeAlgObjCache[i].text == this.options.text && qrcodeAlgObjCache[i].text.correctLevel == this.options.correctLevel) {
@@ -67,7 +68,7 @@ var qrcode = function(opt) {
  * @return {}
  */
 
-qrcode.prototype.createDefault = function(qrCodeAlg) {
+QRCode.prototype.createDefault = function(qrCodeAlg) {
   var canvas = document.createElement('canvas');
   if (canvas.getContext)
     return this.createCanvas(qrCodeAlg);
@@ -75,7 +76,7 @@ qrcode.prototype.createDefault = function(qrCodeAlg) {
     return this.createSVG(qrCodeAlg);
   return this.createTable(qrCodeAlg);
 };
-qrcode.prototype.createCanvas = function(qrCodeAlg) {
+QRCode.prototype.createCanvas = function(qrCodeAlg) {
   //创建canvas节点
   var canvas = document.createElement('canvas');
   canvas.width = this.options.width;
@@ -102,7 +103,7 @@ qrcode.prototype.createCanvas = function(qrCodeAlg) {
  * 使用table来绘制二维码
  * @return {}
  */
-qrcode.prototype.createTable = function(qrCodeAlg) {
+QRCode.prototype.createTable = function(qrCodeAlg) {
   //创建table节点
   var s = [];
   s.push('<table style="border:0px; margin:0px; padding:0px; border-collapse:collapse; background-color: ' +
@@ -150,7 +151,7 @@ qrcode.prototype.createTable = function(qrCodeAlg) {
  * 使用SVG开绘制二维码
  * @return {}
  */
-qrcode.prototype.createSVG = function(qrCodeAlg) {
+QRCode.prototype.createSVG = function(qrCodeAlg) {
   var x, dx, y, dy,
     moduleCount = qrCodeAlg.getModuleCount(),
     scale = this.options.height / this.options.width,
@@ -234,13 +235,13 @@ function getUTF8Bytes(string) {
  * @param {num} errorCorrectLevel 纠错等级
  */
 function QRCodeAlg(data, errorCorrectLevel) {
-  this.typeNumber = -1; //版本
+  this.typeNumber = -1; // 版本
   this.errorCorrectLevel = errorCorrectLevel;
-  this.modules = null;  //二维矩阵，存放最终结果
-  this.moduleCount = 0; //矩阵大小
-  this.dataCache = null; //数据缓存
-  this.rsBlocks = null; //版本数据信息
-  this.totalDataCount = -1; //可使用的数据量
+  this.modules = null;  // 二维矩阵，存放最终结果
+  this.moduleCount = 0; // 矩阵大小
+  this.dataCache = null; // 数据缓存
+  this.rsBlocks = null; // 版本数据信息
+  this.totalDataCount = -1; // 可使用的数据量
   this.data = data;
   this.utf8bytes = getUTF8Bytes(data);
   this.make();
@@ -2447,7 +2448,7 @@ QRCodeAlg.prototype.getRightType = function() {
   for (var typeNumber = 1; typeNumber < 41; typeNumber++) {
     var rsBlock = RS_BLOCK_TABLE[(typeNumber - 1) * 4 + this.errorCorrectLevel];
     if (rsBlock == undefined) {
-      throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + this.errorCorrectLevel);
+      throw new Error('bad rs block @ typeNumber:' + typeNumber + '/errorCorrectLevel:' + this.errorCorrectLevel);
     }
     var length = rsBlock.length / 3;
     var totalDataCount = 0;
@@ -2467,9 +2468,9 @@ QRCodeAlg.prototype.getRightType = function() {
   }
 };
 
-//---------------------------------------------------------------------
+// ---------------------------------------------------------------------
 // QRBitBuffer
-//---------------------------------------------------------------------
+// ---------------------------------------------------------------------
 
 function QRBitBuffer() {
   this.buffer = new Array();
@@ -2477,7 +2478,6 @@ function QRBitBuffer() {
 }
 
 QRBitBuffer.prototype = {
-
   get: function(index) {
     var bufIndex = Math.floor(index / 8);
     return ((this.buffer[bufIndex] >>> (7 - index % 8)) & 1);
@@ -2504,6 +2504,10 @@ QRBitBuffer.prototype = {
   }
 };
 
-$.AMUI.qrcode = qrcode;
+$.fn.qrcode = function QRCodePlugin(option) {
+  return this.each(function() {
+    $(this).append(new QRCode(option));
+  });
+};
 
-module.exports = qrcode;
+module.exports = UI.qrcode = QRCode;

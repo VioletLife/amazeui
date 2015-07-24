@@ -1,7 +1,7 @@
 # Icon
 ---
 
-Amaze UI Icon 组件目前使用了 [Font Awesome](http://fontawesome.io/icons/)（4.2.0），涵盖除部分国内社交网站图标以外的其他常见图标。
+Amaze UI Icon 组件目前使用了 [Font Awesome](http://fontawesome.io/icons/)（Amaze UI 2.2.0 中升级至 4.3.0），涵盖除部分国内社交网站图标以外的其他常见图标。
 
 ## 使用方法
 
@@ -36,12 +36,19 @@ __LESS 用户__可以调用 mixin 编写样式：
 
 ```css
 .doc-icon-custom {
-&:before {
-.am-icon-font;
-content: @fa-var-weibo;
-}
+  &:before {
+    .am-icon-font;
+    content: @fa-var-weibo;
+  }
 }
 ```
+
+### 修改字体路径
+
+~~字体图标目前引了 [Staticfile CDN](http://staticfile.org/) 上的文件（支持 HTTPS），可以自行替换：~~**编译好的 CSS 中已经替换为本地文件。**
+
+- **使用 LESS**： 通过设置变量 `@fa-font-path` 覆盖默认的值，如 `@fa-font-path: "../fonts";`。这个变量定义在 `icon.less` 里。
+- **直接使用 CSS**： 查找替换 `//dn-staticfile.qbox.me/font-awesome/4.2.0/fonts/`。
 
 ## 图标大小
 
@@ -66,15 +73,33 @@ content: @fa-var-weibo;
 
 在 Icon 上添加 `.am-btn-icon` class。
 
+如果需要设置 Icon Button 的颜色，可以添加以下 class：
+
+- `.am-primary`
+- `.am-secondary`
+- `.am-success`
+- `.am-warning`
+- `.am-danger`
+
 `````html
 <a href="" class="am-icon-btn am-icon-twitter"></a>
 <a href="" class="am-icon-btn am-icon-facebook"></a>
 <a href="" class="am-icon-btn am-icon-github"></a>
+<a href="" class="am-icon-btn am-primary am-icon-qq"></a>
+<a href="" class="am-icon-btn am-secondary am-icon-drupal"></a>
+<a href="" class="am-icon-btn am-success am-icon-shield"></a>
+<a href="" class="am-icon-btn am-warning am-icon-warning"></a>
+<a href="" class="am-icon-btn am-danger am-icon-youtube"></a>
 `````
 ```html
 <a href="" class="am-icon-btn am-icon-twitter"></a>
 <a href="" class="am-icon-btn am-icon-facebook"></a>
 <a href="" class="am-icon-btn am-icon-github"></a>
+<a href="" class="am-icon-btn am-primary am-icon-qq"></a>
+<a href="" class="am-icon-btn am-secondary am-icon-drupal"></a>
+<a href="" class="am-icon-btn am-success am-icon-shield"></a>
+<a href="" class="am-icon-btn am-warning am-icon-warning"></a>
+<a href="" class="am-icon-btn am-danger am-icon-youtube"></a>
 ```
 
 ## 旋转动画
@@ -97,6 +122,29 @@ content: @fa-var-weibo;
 <i class="am-icon-gear am-icon-spin"></i>
 ```
 
+**v2.3** 新增动画：
+
+`````html
+<i class="am-icon-spinner am-icon-pulse"></i>
+`````
+```html
+<i class="am-icon-spinner am-icon-pulse"></i>
+```
+
+## 固定宽度
+
+FontAwesome 在绘制图标的时候不同图标宽度有差异， 添加 `.am-icon-fw` 将图标设置为固定的宽度，解决宽度不一致问题（**v2.3 新增**）。
+
+`````html
+<ul>
+  <li><i class="am-icon-qq am-icon-fw"></i> QQ</li>
+  <li><i class="am-icon-skype am-icon-fw"></i> Skype</li>
+  <li><i class="am-icon-github am-icon-fw"></i> GitHub</li>
+  <li><i class="am-icon-cc-amex am-icon-fw"></i> Amex</li>
+</ul>
+`````
+
+
 ## 复制图标
 
 鼠标移到图标上会显示两个小按钮：
@@ -106,75 +154,131 @@ content: @fa-var-weibo;
 
 ```css
 {
-.am-icon-font;
-content: @fa-var-copy;
+  .am-icon-font;
+  content: @fa-var-copy;
 }
+```
+
+## 存在问题
+
+### 关于部分奇葩用户代理不显示字体图标
+
+以酷派为代表的部分安卓手机自带浏览器、微信/QQ WebView 等用户代理无法正常显示 Icon Font，原因可能是这些用户代理无法正确处理伪元素 `content` 的五位数的 Icon Font 十六进制编码，详情参考 [Iconfont 在移动端遇到问题的探讨](http://www.cnblogs.com/ljack/p/3751678.html)，可以通过[这个页面](http://www.w3cmark.com/demo/iconfont.html)进行测试。
+
+解决方式有两种：
+
+- ~~**将 Icon Font 编码限制在 4 位**：Amaze UI 直接使用 Font Awesome，不可能去调整近 500 个图标的编码。~~
+- **将 Icon Font 的编码直接以内容的形式写进 HTML**。
+
+`````html
+<span>&#xf09b; What a fuck.</span>
+`````
+```html
+<span>&#xf09b; What a fuck.</span>
+```
+
+Amaze UI 的定位是面向现代浏览器，虽然对 IE 8/9 这些浏览器提供了有限支持，但这都是在不改变基础架构、不耗费过多精力的前提下。安卓碎片化严重，更恶心的是一些厂商还随意修改浏览器内核，Amaze UI 不可能做到全部兼容，也不可能为极个别的用户代理调整架构、耗费过多精力。
+
+云适配内部有数千个网站在使用 Amaze UI，截止目前还没有接到过图标不显示的反馈。**显然，遇到这些问题的用户需要权衡处理这个问题的成本与收益。**
+
+**v2.3 update**:
+
+有用户在评论中说以下写法可以解决图标不显示的问题，`v2.3` 中已经调整为以下写法，遇到过问题的用户可以测试一下。
+
+```css
+/* 安卓手机端Icon不能正确显示的处理办法：*/
+[class*='am-icon-']:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}　
 ```
 
 ## 所有图标列表
 
 `````html
+<section id="new-4-3">
+  <h2 class="doc-icon-hd">Font Awesome 4.3 新增字体（Amaze UI 2.2 中搭载） </h2>
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
+    <li><a href="http://fontawesome.io/icon/bed"><i class="am-icon-bed"></i> bed</a></li>
+    <li><a href="http://fontawesome.io/icon/buysellads"><i class="am-icon-buysellads"></i> buysellads</a></li>
+    <li><a href="http://fontawesome.io/icon/cart-arrow-down"><i class="am-icon-cart-arrow-down"></i> cart-arrow-down</a></li>
+    <li><a href="http://fontawesome.io/icon/cart-plus"><i class="am-icon-cart-plus"></i> cart-plus</a></li>
+    <li><a href="http://fontawesome.io/icon/connectdevelop"><i class="am-icon-connectdevelop"></i> connectdevelop</a></li>
+    <li><a href="http://fontawesome.io/icon/dashcube"><i class="am-icon-dashcube"></i> dashcube</a></li>
+    <li><a href="http://fontawesome.io/icon/diamond"><i class="am-icon-diamond"></i> diamond</a></li>
+    <li><a href="http://fontawesome.io/icon/facebook-official"><i class="am-icon-facebook-official"></i> facebook-official</a></li>
+    <li><a href="http://fontawesome.io/icon/forumbee"><i class="am-icon-forumbee"></i> forumbee</a></li>
+    <li><a href="http://fontawesome.io/icon/heartbeat"><i class="am-icon-heartbeat"></i> heartbeat</a></li>
+    <li><a href="http://fontawesome.io/icon/bed"><i class="am-icon-hotel"></i> hotel <span class="text-muted">(alias)</span></a></li>
+    <li><a href="http://fontawesome.io/icon/leanpub"><i class="am-icon-leanpub"></i> leanpub</a></li>
+    <li><a href="http://fontawesome.io/icon/mars"><i class="am-icon-mars"></i> mars</a></li>
+    <li><a href="http://fontawesome.io/icon/mars-double"><i class="am-icon-mars-double"></i> mars-double</a></li>
+    <li><a href="http://fontawesome.io/icon/mars-stroke"><i class="am-icon-mars-stroke"></i> mars-stroke</a></li>
+    <li><a href="http://fontawesome.io/icon/mars-stroke-h"><i class="am-icon-mars-stroke-h"></i> mars-stroke-h</a></li>
+    <li><a href="http://fontawesome.io/icon/mars-stroke-v"><i class="am-icon-mars-stroke-v"></i> mars-stroke-v</a></li>
+    <li><a href="http://fontawesome.io/icon/medium"><i class="am-icon-medium"></i> medium</a></li>
+    <li><a href="http://fontawesome.io/icon/mercury"><i class="am-icon-mercury"></i> mercury</a></li>
+    <li><a href="http://fontawesome.io/icon/motorcycle"><i class="am-icon-motorcycle"></i> motorcycle</a></li>
+    <li><a href="http://fontawesome.io/icon/neuter"><i class="am-icon-neuter"></i> neuter</a></li>
+    <li><a href="http://fontawesome.io/icon/pinterest-p"><i class="am-icon-pinterest-p"></i> pinterest-p</a></li>
+    <li><a href="http://fontawesome.io/icon/sellsy"><i class="am-icon-sellsy"></i> sellsy</a></li>
+    <li><a href="http://fontawesome.io/icon/server"><i class="am-icon-server"></i> server</a></li>
+    <li><a href="http://fontawesome.io/icon/ship"><i class="am-icon-ship"></i> ship</a></li>
+    <li><a href="http://fontawesome.io/icon/shirtsinbulk"><i class="am-icon-shirtsinbulk"></i> shirtsinbulk</a></li>
+    <li><a href="http://fontawesome.io/icon/simplybuilt"><i class="am-icon-simplybuilt"></i> simplybuilt</a></li>
+    <li><a href="http://fontawesome.io/icon/skyatlas"><i class="am-icon-skyatlas"></i> skyatlas</a></li>
+    <li><a href="http://fontawesome.io/icon/street-view"><i class="am-icon-street-view"></i> street-view</a></li>
+    <li><a href="http://fontawesome.io/icon/subway"><i class="am-icon-subway"></i> subway</a></li>
+    <li><a href="http://fontawesome.io/icon/train"><i class="am-icon-train"></i> train</a></li>
+    <li><a href="http://fontawesome.io/icon/transgender"><i class="am-icon-transgender"></i> transgender</a></li>
+    <li><a href="http://fontawesome.io/icon/transgender-alt"><i class="am-icon-transgender-alt"></i> transgender-alt</a></li>
+    <li><a href="http://fontawesome.io/icon/user-plus"><i class="am-icon-user-plus"></i> user-plus</a></li>
+    <li><a href="http://fontawesome.io/icon/user-secret"><i class="am-icon-user-secret"></i> user-secret</a></li>
+    <li><a href="http://fontawesome.io/icon/user-times"><i class="am-icon-user-times"></i> user-times</a></li>
+    <li><a href="http://fontawesome.io/icon/venus"><i class="am-icon-venus"></i> venus</a></li>
+    <li><a href="http://fontawesome.io/icon/venus-double"><i class="am-icon-venus-double"></i> venus-double</a></li>
+    <li><a href="http://fontawesome.io/icon/venus-mars"><i class="am-icon-venus-mars"></i> venus-mars</a></li>
+    <li><a href="http://fontawesome.io/icon/viacoin"><i class="am-icon-viacoin"></i> viacoin</a></li>
+    <li><a href="http://fontawesome.io/icon/whatsapp"><i class="am-icon-whatsapp"></i> whatsapp</a></li>
+    </ul>
+</section>
+
 <section id="new">
   <h2 class="doc-icon-hd">40 New Icons in 4.2</h2>
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/angellist"><i class="am-icon-angellist"></i> angellist</a></li>
-
     <li><a href="http://fontawesome.io/icon/area-chart"><i class="am-icon-area-chart"></i> area-chart</a></li>
-
     <li><a href="http://fontawesome.io/icon/at"><i class="am-icon-at"></i> at</a></li>
-
     <li><a href="http://fontawesome.io/icon/bell-slash"><i class="am-icon-bell-slash"></i> bell-slash</a></li>
-
     <li><a href="http://fontawesome.io/icon/bell-slash-o"><i class="am-icon-bell-slash-o"></i> bell-slash-o</a></li>
-
     <li><a href="http://fontawesome.io/icon/bicycle"><i class="am-icon-bicycle"></i> bicycle</a></li>
-
     <li><a href="http://fontawesome.io/icon/binoculars"><i class="am-icon-binoculars"></i> binoculars</a></li>
-
     <li><a href="http://fontawesome.io/icon/birthday-cake"><i class="am-icon-birthday-cake"></i> birthday-cake</a></li>
-
     <li><a href="http://fontawesome.io/icon/bus"><i class="am-icon-bus"></i> bus</a></li>
-
     <li><a href="http://fontawesome.io/icon/calculator"><i class="am-icon-calculator"></i> calculator</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc"><i class="am-icon-cc"></i> cc</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-amex"><i class="am-icon-cc-amex"></i> cc-amex</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-discover"><i class="am-icon-cc-discover"></i> cc-discover</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-mastercard"><i class="am-icon-cc-mastercard"></i> cc-mastercard</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-paypal"><i class="am-icon-cc-paypal"></i> cc-paypal</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-stripe"><i class="am-icon-cc-stripe"></i> cc-stripe</a></li>
-
     <li><a href="http://fontawesome.io/icon/cc-visa"><i class="am-icon-cc-visa"></i> cc-visa</a></li>
-
     <li><a href="http://fontawesome.io/icon/copyright"><i class="am-icon-copyright"></i> copyright</a></li>
-
     <li><a href="http://fontawesome.io/icon/eyedropper"><i class="am-icon-eyedropper"></i> eyedropper</a></li>
-
     <li><a href="http://fontawesome.io/icon/futbol-o"><i class="am-icon-futbol-o"></i> futbol-o</a></li>
-
     <li><a href="http://fontawesome.io/icon/google-wallet"><i class="am-icon-google-wallet"></i> google-wallet</a></li>
-
     <li><a href="http://fontawesome.io/icon/ils"><i class="am-icon-ils"></i> ils</a></li>
-
     <li><a href="http://fontawesome.io/icon/ioxhost"><i class="am-icon-ioxhost"></i> ioxhost</a></li>
-
     <li><a href="http://fontawesome.io/icon/lastfm"><i class="am-icon-lastfm"></i> lastfm</a></li>
-
     <li><a href="http://fontawesome.io/icon/lastfm-square"><i class="am-icon-lastfm-square"></i> lastfm-square</a></li>
-
     <li><a href="http://fontawesome.io/icon/line-chart"><i class="am-icon-line-chart"></i> line-chart</a></li>
-
     <li><a href="http://fontawesome.io/icon/meanpath"><i class="am-icon-meanpath"></i> meanpath</a></li>
-
     <li><a href="http://fontawesome.io/icon/newspaper-o"><i class="am-icon-newspaper-o"></i> newspaper-o</a></li>
-
     <li><a href="http://fontawesome.io/icon/paint-brush"><i class="am-icon-paint-brush"></i> paint-brush</a></li>
-
     <li><a href="http://fontawesome.io/icon/paypal"><i class="am-icon-paypal"></i> paypal</a></li>
 
     <li><a href="http://fontawesome.io/icon/pie-chart"><i class="am-icon-pie-chart"></i> pie-chart</a></li>
@@ -212,7 +316,7 @@ content: @fa-var-copy;
 <section id="web-application">
 <h2 class="doc-icon-hd">Web Application Icons</h2>
 
-<ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+<ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
 <li><a href="http://fontawesome.io/icon/adjust"><i class="am-icon-adjust"></i> adjust</a></li>
 <li><a href="http://fontawesome.io/icon/anchor"><i class="am-icon-anchor"></i> anchor</a></li>
 <li><a href="http://fontawesome.io/icon/archive"><i class="am-icon-archive"></i> archive</a></li>
@@ -539,7 +643,7 @@ content: @fa-var-copy;
 <section id="file-type">
   <h2 class="doc-icon-hd">File Type Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/file"><i class="am-icon-file"></i> file</a></li>
     <li><a href="http://fontawesome.io/icon/file-archive-o"><i class="am-icon-file-archive-o"></i> file-archive-o</a></li>
     <li><a href="http://fontawesome.io/icon/file-audio-o"><i class="am-icon-file-audio-o"></i> file-audio-o</a></li>
@@ -570,7 +674,7 @@ content: @fa-var-copy;
     <a href="http://fontawesome.io/examples/#spinning" class="alert-link">spinning icons example</a>.
   </div>
 
-    <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+    <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
       <li><a href="http://fontawesome.io/icon/circle-o-notch"><i class="am-icon-circle-o-notch"></i> circle-o-notch</a></li>
       <li><a href="http://fontawesome.io/icon/cog"><i class="am-icon-cog"></i> cog</a></li>
       <li><a href="http://fontawesome.io/icon/cog"><i class="am-icon-gear"></i> gear <span class="text-muted">(alias)</span></a></li>
@@ -582,7 +686,7 @@ content: @fa-var-copy;
 <section id="form-control">
   <h2 class="doc-icon-hd">Form Control Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
 
     <li><a href="http://fontawesome.io/icon/check-square"><i class="am-icon-check-square"></i> check-square</a></li>
     <li><a href="http://fontawesome.io/icon/check-square-o"><i class="am-icon-check-square-o"></i> check-square-o</a></li>
@@ -601,7 +705,7 @@ content: @fa-var-copy;
 <section id="payment">
   <h2 class="doc-icon-hd">Payment Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/cc-amex"><i class="am-icon-cc-amex"></i> cc-amex</a></li>
     <li><a href="http://fontawesome.io/icon/cc-discover"><i class="am-icon-cc-discover"></i> cc-discover</a></li>
     <li><a href="http://fontawesome.io/icon/cc-mastercard"><i class="am-icon-cc-mastercard"></i> cc-mastercard</a></li>
@@ -616,7 +720,7 @@ content: @fa-var-copy;
 
 <section id="chart">
   <h2 class="doc-icon-hd">Chart Icons</h2>
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/area-chart"><i class="am-icon-area-chart"></i> area-chart</a></li>
     <li><a href="http://fontawesome.io/icon/bar-chart"><i class="am-icon-bar-chart"></i> bar-chart</a></li>
     <li><a href="http://fontawesome.io/icon/bar-chart"><i class="am-icon-bar-chart-o"></i> bar-chart-o <span class="text-muted">(alias)</span></a></li>
@@ -628,7 +732,7 @@ content: @fa-var-copy;
 <section id="currency">
   <h2 class="doc-icon-hd">Currency Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/btc"><i class="am-icon-bitcoin"></i> bitcoin <span class="text-muted">(alias)</span></a></li>
     <li><a href="http://fontawesome.io/icon/btc"><i class="am-icon-btc"></i> btc</a></li>
     <li><a href="http://fontawesome.io/icon/jpy"><i class="am-icon-cny"></i> cny <span class="text-muted">(alias)</span></a></li>
@@ -659,7 +763,7 @@ content: @fa-var-copy;
 <section id="text-editor">
   <h2 class="doc-icon-hd">Text Editor Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/align-center"><i class="am-icon-align-center"></i> align-center</a></li>
     <li><a href="http://fontawesome.io/icon/align-justify"><i class="am-icon-align-justify"></i> align-justify</a></li>
     <li><a href="http://fontawesome.io/icon/align-left"><i class="am-icon-align-left"></i> align-left</a></li>
@@ -715,7 +819,7 @@ content: @fa-var-copy;
 <section id="directional">
   <h2 class="doc-icon-hd">Directional Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/angle-double-down"><i class="am-icon-angle-double-down"></i> angle-double-down</a></li>
     <li><a href="http://fontawesome.io/icon/angle-double-left"><i class="am-icon-angle-double-left"></i> angle-double-left</a></li>
     <li><a href="http://fontawesome.io/icon/angle-double-right"><i class="am-icon-angle-double-right"></i> angle-double-right</a></li>
@@ -774,7 +878,7 @@ content: @fa-var-copy;
 <section id="video-player">
   <h2 class="doc-icon-hd">Video Player Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/arrows-alt"><i class="am-icon-arrows-alt"></i> arrows-alt</a></li>
     <li><a href="http://fontawesome.io/icon/backward"><i class="am-icon-backward"></i> backward</a></li>
     <li><a href="http://fontawesome.io/icon/compress"><i class="am-icon-compress"></i> compress</a></li>
@@ -815,7 +919,7 @@ content: @fa-var-copy;
     an error. To work around this, you'll need to modify the social icon class names.
   </div>
 
-      <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+      <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
         <li><a href="http://fontawesome.io/icon/adn"><i class="am-icon-adn"></i> adn</a></li>
         <li><a href="http://fontawesome.io/icon/android"><i class="am-icon-android"></i> android</a></li>
         <li><a href="http://fontawesome.io/icon/angellist"><i class="am-icon-angellist"></i> angellist</a></li>
@@ -923,7 +1027,7 @@ content: @fa-var-copy;
 <section id="medical">
   <h2 class="doc-icon-hd">Medical Icons</h2>
 
-  <ul class="doc-icon-list sm-block-grid-2 md-block-grid-3 lg-block-grid-4">
+  <ul class="doc-icon-list am-avg-sm-2 am-avg-md-3 am-avg-lg-4">
     <li><a href="http://fontawesome.io/icon/ambulance"><i class="am-icon-ambulance"></i> ambulance</a></li>
     <li><a href="http://fontawesome.io/icon/h-square"><i class="am-icon-h-square"></i> h-square</a></li>
     <li><a href="http://fontawesome.io/icon/hospital-o"><i class="am-icon-hospital-o"></i> hospital-o</a></li>

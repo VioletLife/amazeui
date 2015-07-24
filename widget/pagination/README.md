@@ -14,7 +14,7 @@ ___本组件样式有待改善!___
 
 ### 使用 Handlebars
 
-本组件 Handlebars partial 名称为 `figure`，使用细节参照[折叠面板组件](/widgets/accordion)。
+本组件 Handlebars partial 名称为 `pagination`，使用细节参照[折叠面板组件](/widgets/accordion)。
 
 ### 云适配 WebIDE
 
@@ -51,12 +51,6 @@ var data = {
 
 return data;
 ```
-
-### 设置说明（0.9）
-
-- `options` 内 `select` 选项：默认是 theme-1，更改此属性后，使用 theme-2 或 theme-3；
-- 设置总页数 `total` 值：显示形式为 `3/5`，否则为 `3` 形式；
-- 使用 `theme-2` 或 `theme-3` 时，页码改变调用函数为：pageChange()，需自行定义。
 
 ## 数据结构
 
@@ -97,8 +91,7 @@ return data;
       {
         "title": "1",
         "link": "#",
-        "class": "" // AMUI 0.9
-        "className": "", // AMUI 1.0
+        "className": ""
       }
     ]
   }

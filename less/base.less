@@ -18,11 +18,11 @@
 *,
 *:before,
 *:after {
-  .box-sizing(border-box);
+  box-sizing: border-box;
 }
 
 
-/* normalize.css v3.0.1 | git.io/normalize */
+/* normalize.css v3.0.2 | git.io/normalize */
 
 /* Set <html> and <body> to inherit the height of the viewport */
 
@@ -74,6 +74,7 @@ figure,
 footer,
 header,
 hgroup,
+menu,
 main,
 nav,
 section,
@@ -128,7 +129,7 @@ script {
  */
 
 a {
-  background: transparent;
+  background-color: transparent;
 }
 
 
@@ -239,12 +240,13 @@ sub {
   * 2. Responsiveness: Sets a maxium width relative to the parent and auto scales the height
   * 3. Remove the gap between images and the bottom of their containers
   * 4. Remove border when inside `a` element in IE 8/9.
+  * remove 2. for Issue #502
   */
 
 img {
-  .box-sizing(border-box); /* 1 */
-  max-width: 100%; /* 2 */
-  height: auto; /* 2 */
+  box-sizing: border-box; /* 1 */
+  // max-width: 100%; /* 2 */
+  // height: auto; /* 2 */
   vertical-align: middle; /* 3 */
   border: 0; /* 4 */
 }
@@ -435,7 +437,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="search"] {
   -webkit-appearance: textfield; /* 1 */
-  .box-sizing(content-box); /* 2 */
+  box-sizing: content-box; /* 2 */
 }
 
 
@@ -501,7 +503,8 @@ th {
  */
 
 html {
-  font-size: 62.5%; // set base font-size to 10px (16px * 62.5), 1rem = 10px
+  // font-size: 62.5%; // set base font-size to 10px (16px * 62.5), 1rem = 10px
+  font-size: 10px; // Firefox on Mac default font-size is 15px
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -547,12 +550,11 @@ button {
 
 /*Only phones */
 
-@media (max-width: @breakpoint-small-max) {
+@media @small-only {
 
   /**
    * Break strings if their length exceeds the width of their container
    */
-
   body {
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -585,7 +587,6 @@ a {
 // em { color: @base-em-color; }
 
 /* Insert */
-
 ins {
   background: @base-ins-background;
   color: @base-ins-color;
@@ -596,7 +597,6 @@ ins {
  * Mark
  * Note: Addresses styling not present in IE 8/9.
  */
-
 mark {
   background: @base-mark-background;
   color: @base-mark-color;
@@ -604,42 +604,8 @@ mark {
 
 
 /**
- * Selection highlight
- */
-
-::-moz-selection {
-  background: @base-selection-background;
-  color: @base-selection-color;
-  text-shadow: none;
-}
-
-::selection {
-  background: @base-selection-background;
-  color: @base-selection-color;
-  text-shadow: none;
-}
-
-/*  Change `background` for text selections when browser is unfocused */
-
-::selection:window-inactive {
-  background: @gray-light;
-}
-
-/* Remove `background` on images when selected */
-
-img::selection {
-  background: transparent;
-}
-
-img::-moz-selection {
-  background: transparent;
-}
-
-
-/**
  * Abbreviation and definition
  */
-
 abbr[title],
 dfn[title] {
   cursor: help;
@@ -652,7 +618,6 @@ dfn[title] {
 
 
 /* Spacing for block elements */
-
 p,
 hr,
 ul,
@@ -683,7 +648,6 @@ figure {
 
 /* Headings
    ========================================================================== */
-
 h1,
 h2,
 h3,
@@ -714,20 +678,16 @@ h2 {
 }
 
 
-
 // List
 // ========================================================================
 
 /* Ordered and unordered lists */
-
 ul,
 ol {
   padding-left: 2em;
 }
 
-
 /* Reset margin for nested lists */
-
 ul > li > ul,
 ul > li > ol,
 ol > li > ol,
@@ -737,7 +697,6 @@ ol > li > ul {
 
 
 /* Description lists */
-
 dt {
   font-weight: bold;
   & + dd {
@@ -757,7 +716,6 @@ dd {
  * Horizontal rule
  * 1. Address differences between Firefox and other browsers.
  */
-
 hr {
   display: block;
   padding: 0;
@@ -770,14 +728,12 @@ hr {
 
 
 /* Address */
-
 address {
   font-style: normal;
 }
 
 
 /* Quotes */
-
 q,
 blockquote {
   //font-style: italic;
@@ -793,7 +749,6 @@ blockquote {
   //line-height: @base-blockquote-line-height;
 
   /* Small print for identifying the source */
-
   small {
     display: block;
     color: @base-blockquote-small-color;
@@ -802,7 +757,6 @@ blockquote {
   }
 
   /* Smaller margin if `small` follows */
-
   p:last-of-type {
     margin-bottom: 0;
   }
@@ -810,7 +764,6 @@ blockquote {
 
 
 /* iframe */
-
 iframe {
   border: 0;
 }
@@ -824,7 +777,6 @@ iframe {
   * Vertical alignment
   * Exclude `radio` and `checkbox` elements because the default `baseline` value aligns better with text
   */
-
 button,
 input:not([type="radio"]):not([type="checkbox"]),
 select {
@@ -846,12 +798,15 @@ select {
 */
 
 
+// Scrollbar measure help class
+.@{ns}scrollbar-measure {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+  position: absolute;
+  top: -9999px;
+}
+
 // Base Hooks
 
 .hook-base-body() {}
-
-// NOTE:
-// REMOVE this line when PureView USED in every component
-.pinch-zoom {
-  width: 100%;
-}

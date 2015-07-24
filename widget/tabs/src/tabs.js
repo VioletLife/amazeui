@@ -1,8 +1,8 @@
 'use strict';
 
 var $ = require('jquery');
-require('./core');
-require('./ui.tabs');
+var UI = require('../../../js/core');
+require('../../../js/ui.tabs');
 
 function tabsInit() {
   $('[data-am-widget="tabs"]').each(function() {
@@ -11,11 +11,9 @@ function tabsInit() {
   });
 }
 
-$(function() {
-  tabsInit();
-});
+$(tabsInit);
 
-module.exports = $.AMUI.tab = {
-  VERSION: '4.0.0',
+module.exports = UI.tab = {
+  VERSION: '4.0.1',
   init: tabsInit
 };

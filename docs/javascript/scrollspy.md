@@ -1,3 +1,13 @@
+---
+id: scrollspy
+title: 滚动侦测
+titleEn: ScrollSpy
+prev: javascript/offcanvas.html
+next: javascript/scrollspynav.html
+source: js/ui.scrollspy.js
+doc: docs/javascript/scrollspy.md
+---
+
 # ScrollSpy
 ---
 
@@ -9,7 +19,7 @@
 
 `````html
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-primary" data-am-scrollspy="{animation: 'fade'}">
       <div class="am-panel-hd">Fade</div>
       <div class="am-panel-bd">
@@ -20,7 +30,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3 col-md-offset-4 col-lg-offset-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3 am-u-md-offset-4 am-u-lg-offset-3">
     <div class="am-panel am-panel-secondary" data-am-scrollspy="{animation: 'scale-up'}">
       <div class="am-panel-hd">Scale-up</div>
       <div class="am-panel-bd">
@@ -31,7 +41,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3 col-md-offset-8 col-lg-offset-6">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3 am-u-md-offset-8 am-u-lg-offset-6">
     <div class="am-panel am-panel-success" data-am-scrollspy="{animation: 'scale-down'}">
       <div class="am-panel-hd">Scale-down
       </div>
@@ -43,7 +53,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3 col-md-offset-8 col-lg-offset-9">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3 am-u-md-offset-8 am-u-lg-offset-9">
     <div class="am-panel am-panel-warning" data-am-scrollspy="{animation: 'slide-top'}">
       <div class="am-panel-hd">Slide Top
       </div>
@@ -55,7 +65,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3 col-md-offset-8 col-lg-offset-6">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3 am-u-md-offset-8 am-u-lg-offset-6">
     <div class="am-panel am-panel-danger" data-am-scrollspy="{animation: 'slide-bottom'}">
       <div class="am-panel-hd">Slide Bottom
       </div>
@@ -67,7 +77,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3 col-md-offset-4 col-lg-offset-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3 am-u-md-offset-4 am-u-lg-offset-3">
     <div class="am-panel am-panel-primary" data-am-scrollspy="{animation: 'slide-right'}">
       <div class="am-panel-hd">Slide Right
       </div>
@@ -79,7 +89,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-secondary" data-am-scrollspy="{animation: 'slide-left'}">
       <div class="am-panel-hd">Slide Left</div>
       <div class="am-panel-bd">
@@ -90,7 +100,7 @@
 </div>
 
 <div class="am-g">
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-success" data-am-scrollspy="{animation: 'fade'}">
       <div class="am-panel-hd">Fade</div>
       <div class="am-panel-bd">
@@ -99,7 +109,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-warning" data-am-scrollspy="{animation: 'fade', delay: 300}">
       <div class="am-panel-hd">Fade delay: 300</div>
       <div class="am-panel-bd">
@@ -108,7 +118,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-danger" data-am-scrollspy="{animation: 'fade', delay: 600}">
       <div class="am-panel-hd">Fade delay: 600
       </div>
@@ -118,7 +128,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-4 col-lg-3">
+  <div class="am-u-sm-12 am-u-md-4 am-u-lg-3">
     <div class="am-panel am-panel-primary" data-am-scrollspy="{animation: 'fade', delay: 900}">
       <div class="am-panel-hd">Fade delay: 900
       </div>
@@ -244,4 +254,54 @@ $(function() {
 });
 ```
 
+#### MutationObserver
+
+通过 [Mutation Observer](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) 可以实现动态加载元素的动画效果。
+
+`````html
+<p><button class="am-btn am-btn-primary" id="doc-scrollspy-insert">插入</button></p>
+<div id="doc-scrollspy-wrapper" data-am-observe>
+<p>在下面插入一些元素试试：</p>
+</div>
+<script>
+  $(function() {
+    var i = 1;
+    var $wrapper = $('#doc-scrollspy-wrapper');
+    var appendPanel = function(index) {
+      var panel = '<div class="am-panel am-panel-primary" ' +
+        'data-am-scrollspy="{animation: \'scale-up\'}">' +
+        '<div class="am-panel-bd">我是第' + index + '个插入的元素。</div></div>';
+      $wrapper.append(panel);
+    };
+
+    $('#doc-scrollspy-insert').on('click', function() {
+      appendPanel(i);
+      i++;
+    });
+  });
+</script>
+`````
+```html
+<p><button class="am-btn am-btn-primary" id="doc-scrollspy-insert">插入</button></p>
+<div id="doc-scrollspy-wrapper" data-am-observe>
+  <p>在下面插入一些元素试试：</p>
+</div>
+```
+```javascript
+$(function() {
+  var i = 1;
+  var $wrapper = $('#doc-scrollspy-wrapper');
+  var appendPanel = function(index) {
+    var panel = '<div class="am-panel am-panel-primary" ' +
+      'data-am-scrollspy="{animation: \'scale-up\'}">' +
+      '<div class="am-panel-bd">我是第' + index + '个插入的元素。</div></div>';
+    $wrapper.append(panel);
+  };
+
+  $('#doc-scrollspy-insert').on('click', function() {
+    appendPanel(i);
+    i++;
+  });
+});
+```
 

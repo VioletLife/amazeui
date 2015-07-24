@@ -1,9 +1,8 @@
 'use strict';
 
 var $ = require('jquery');
-require('./core');
-require('./ui.flexslider');
-var UI = $.AMUI;
+var UI = require('../../../js/core');
+require('../../../js/ui.flexslider');
 
 function sliderInit() {
   var $sliders = $('[data-am-widget="slider"]');
@@ -13,9 +12,9 @@ function sliderInit() {
   });
 }
 
-$(document).on('ready', sliderInit);
+$(sliderInit);
 
-module.exports = $.AMUI.slider = {
-  VERSION: '3.0.0',
+module.exports = UI.slider = {
+  VERSION: '3.0.1',
   init: sliderInit
 };

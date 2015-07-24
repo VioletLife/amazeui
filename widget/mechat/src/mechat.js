@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var UI = require('../../../js/core');
 
 function mechatInit() {
   if (!$('#mechat').length) {
@@ -20,7 +21,7 @@ function mechatInit() {
 // Lazy load
 $(window).on('load', mechatInit);
 
-module.exports = $.AMUI.mechat = {
-  VERSION: '2.0.0',
+module.exports = UI.mechat = {
+  VERSION: '2.0.1',
   init: mechatInit
 };

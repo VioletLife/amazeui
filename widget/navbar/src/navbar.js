@@ -1,11 +1,10 @@
 'use strict';
 
 var $ = require('jquery');
-require('./core');
-require('./ui.modal');
-var share = require('./ui.share');
-var QRCode = require('./util.qrcode');
-var UI = $.AMUI;
+var UI = require('../../../js/core');
+var share = require('../../../js/ui.share');
+var QRCode = require('../../../js/util.qrcode');
+require('../../../js/ui.modal');
 
 function navbarInit() {
   var $navBar = $('[data-am-widget="navbar"]');
@@ -21,7 +20,7 @@ function navbarInit() {
   var navItemsCounter = $navItems.length;
   var configItems = $navBarNav.attr('class') &&
     parseInt($navBarNav.attr('class').
-      match(/sm-block-grid-(\d+)/)[1]) || 3;
+      match(/am-avg-sm-(\d+)/)[1]) || 3;
   var navMinWidth = 60; // 每个 li 最小宽度
   var offsetWidth = 16;
   var $share = $navItems.filter('[data-am-navbar-share]');
@@ -155,11 +154,9 @@ function navbarInit() {
 }
 
 // DOMContent ready
-$(function() {
-  navbarInit();
-});
+$(navbarInit);
 
-module.exports = $.AMUI.navbar = {
-  VERSION: '2.0.0',
+module.exports = UI.navbar = {
+  VERSION: '2.0.2',
   init: navbarInit
 };

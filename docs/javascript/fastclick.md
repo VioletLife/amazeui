@@ -1,7 +1,21 @@
+---
+id: fastclick
+title: 移动端 300 毫秒延迟处理
+titleEn: FastClick
+prev: javascript/cookie.html
+next: javascript/fullscreen.html
+source: js/util.fastclick.js
+doc: docs/javascript/fastclick.md
+---
+
 # FastClick
 ---
 
-处理移动端 `click` 事件 300 毫秒延迟， 由 [FT Labs](http://labs.ft.com/) 开发，Github 项目地址：https://github.com/ftlabs/fastclick 。
+**`v2.4` 重要变更：**
+
+**由于引入 FastClick 以后会产生一些问题，从 `v2.4` 开始移除，需要的用户请直接从 [FastClick 官方项目](https://github.com/ftlabs/fastclick)获取。**
+
+处理移动端 `click` 事件 300 毫秒延迟， 由 [FT Labs](http://labs.ft.com/) 开发（[项目地址](https://github.com/ftlabs/fastclick)）。
 
 ## 为什么存在延迟？
 
@@ -52,6 +66,35 @@ CommonJS:
 ```javascript
 var attachFastClick = require('fastclick');
 attachFastClick(document.body);
+```
+
+## 常见问题
+
+### 使用 FastClick 以后 `contenteditable` 在触摸屏上失效，如何处理？
+
+在需要启动编辑功能的元素上添加 `.needsclick` class 即可（[在线演示](http://jsbin.com/wahilo/3/)）。
+
+
+`````html
+<div contenteditable class="needsclick">
+  <p>请使用触屏访问，然后尝试编辑下面的内容</p>
+  <p>编我改我写我……</p>
+</div>
+<hr>
+<div contenteditable>
+  没有加 <code>needsclick</code> class，触摸屏加载 FastClick 以后注定无法编辑。
+</div>
+`````
+
+```html
+<div contenteditable class="needsclick">
+  <p>请使用触屏访问，然后尝试编辑下面的内容</p>
+  <p>编我改我写我……</p>
+</div>
+<hr>
+<div contenteditable>
+  没有加 <code>needsclick</code> class，触摸屏加载 FastClick 以后注定无法编辑。
+</div>
 ```
 
 ## Licence

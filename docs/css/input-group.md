@@ -13,12 +13,12 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 `````html
 <div class="am-input-group">
-  <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="Username">
 </div>
 
 <div class="am-input-group">
-  <span class="am-input-group-label"><i class="am-icon-lock"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="Password">
 </div>
 
@@ -36,12 +36,12 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 ```html
 <div class="am-input-group">
-  <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="Username">
 </div>
 
 <div class="am-input-group">
-  <span class="am-input-group-label"><i class="am-icon-lock"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="Password">
 </div>
 
@@ -63,7 +63,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 `````html
 <div class="am-g">
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-label">
         <input type="checkbox">
@@ -71,7 +71,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-label">
         <input type="radio">
@@ -83,7 +83,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 `````
 ```html
 <div class="am-g">
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-label">
         <input type="checkbox">
@@ -91,7 +91,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-label">
         <input type="radio">
@@ -108,7 +108,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 `````html
 <div class="am-g">
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-btn">
         <button class="am-btn am-btn-default" type="button"><span class="am-icon-search"></span> </button>
@@ -116,7 +116,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <input type="text" class="am-form-field">
       <span class="am-input-group-btn">
@@ -128,7 +128,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 `````
 ```html
 <div class="am-g">
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <span class="am-input-group-btn">
         <button class="am-btn am-btn-default" type="button"><span class="am-icon-search"></span> </button>
@@ -136,7 +136,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="am-col col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group">
       <input type="text" class="am-form-field">
       <span class="am-input-group-btn">
@@ -189,40 +189,40 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 ```
 
 ### 颜色
-    
+
 `````html
 <div class="am-input-group am-input-group-primary">
-  <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="你的大名">
 </div>
 
-<div class="am-input-group am-input-group-seconday">
-  <span class="am-input-group-label"><i class="am-icon-credit-card"></i></span>
+<div class="am-input-group am-input-group-secondary">
+  <span class="am-input-group-label"><i class="am-icon-credit-card am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="你的银行卡号">
 </div>
 
 <div class="am-input-group am-input-group-success">
-  <span class="am-input-group-label"><i class="am-icon-money"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-money am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="你的银行卡密码">
 </div>
 
 <div class="am-input-group am-input-group-warning">
-  <span class="am-input-group-label"><i class="am-icon-bank"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-bank am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="开户行">
 </div>
 
 <div class="am-input-group am-input-group-danger">
-  <span class="am-input-group-label"><i class="am-icon-location-arrow"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-location-arrow am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="你所在城市">
 </div>
 `````
 ```html
 <div class="am-input-group am-input-group-primary">
-  <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
   <input type="text" class="am-form-field" placeholder="你的大名">
 </div>
 
-<div class="am-input-group am-input-group-seconday">
+<div class="am-input-group am-input-group-secondary">
   ...
 </div>
 
@@ -243,7 +243,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 `````html
 <div class="am-g">
-  <div class="col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group am-input-group-danger">
       <span class="am-input-group-label">
         <input type="checkbox">
@@ -251,7 +251,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group am-input-group-primary">
       <span class="am-input-group-btn">
         <button class="am-btn am-btn-primary" type="button"><span class="am-icon-search"></span></button>
@@ -264,7 +264,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
 
 ```html
 <div class="am-g">
-  <div class="col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group am-input-group-danger">
       <span class="am-input-group-label">
         <input type="checkbox">
@@ -272,7 +272,7 @@ Input group 基于 Form 组件和 Button 组件扩展，依赖这两个组件。
       <input type="text" class="am-form-field">
     </div>
   </div>
-  <div class="col-lg-6">
+  <div class="am-u-lg-6">
     <div class="am-input-group am-input-group-primary">
       <span class="am-input-group-btn">
         <button class="am-btn am-btn-primary" type="button"><span class="am-icon-search"></span></button>

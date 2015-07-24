@@ -1,6 +1,18 @@
 # Footer 更细记录
 ---
 
+## v3.1.2 (2015.01.09)
+
+- `CHANGED` 删除 ide 示例接口字段 example。
+
+## v3.1.1 (2014.12.16)
+
+- `CHANGED` add `addToHS` option, diable `addToHS` default
+
+## v3.1.0 (2014.12.08)
+
+- `CHANGED` Remove powered by。
+
 ## v3.0.0 (2014.10.30)
 
 - `NEW` 使用 jQuery。

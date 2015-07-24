@@ -12,101 +12,110 @@ var animation = UI.support.animation;
  * @license MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+/**
+ * Tabs
+ * @param {HTMLElement} element
+ * @param {Object} options
+ * @constructor
+ */
 var Tabs = function(element, options) {
   this.$element = $(element);
   this.options = $.extend({}, Tabs.DEFAULTS, options || {});
+  this.transitioning = this.activeIndex = null;
 
-  this.$tabNav = this.$element.find(this.options.selector.nav);
-  this.$navs = this.$tabNav.find('a');
-
-  this.$content = this.$element.find(this.options.selector.content);
-  this.$tabPanels = this.$content.find(this.options.selector.panel);
-
-  this.transitioning = null;
-
+  this.refresh();
   this.init();
 };
 
 Tabs.DEFAULTS = {
   selector: {
-    nav: '.am-tabs-nav',
-    content: '.am-tabs-bd',
-    panel: '.am-tab-panel'
+    nav: '> .am-tabs-nav',
+    content: '> .am-tabs-bd',
+    panel: '> .am-tab-panel'
   },
-  className: {
-    active: 'am-active'
+  activeClass: 'am-active'
+};
+
+Tabs.prototype.refresh = function() {
+  var selector = this.options.selector;
+
+  this.$tabNav = this.$element.find(selector.nav);
+  this.$navs = this.$tabNav.find('a');
+
+  this.$content = this.$element.find(selector.content);
+  this.$tabPanels = this.$content.find(selector.panel);
+
+  var $active = this.$tabNav.find('> .' + this.options.activeClass);
+
+  // Activate the first Tab when no active Tab or multiple active Tabs
+  if ($active.length !== 1) {
+    this.open(0);
+  } else {
+    this.activeIndex = this.$navs.index($active.children('a'));
   }
 };
 
 Tabs.prototype.init = function() {
-  var me = this;
+  var _this = this;
   var options = this.options;
 
-  // Activate the first Tab when no active Tab or multiple active Tabs
-  if (this.$tabNav.find('> .am-active').length !== 1) {
-    var $tabNav = this.$tabNav;
-    this.activate($tabNav.children('li').first(), $tabNav);
-    this.activate(this.$tabPanels.first(), this.$content);
-  }
-
-  this.$navs.on('click.tabs.amui', function(e) {
+  this.$element.on('click.tabs.amui', options.selector.nav + ' a', function(e) {
     e.preventDefault();
-    me.open($(this));
+    _this.open($(this));
   });
 
+  // TODO: nested Tabs touch events
   if (!options.noSwipe) {
-    var hammer = new Hammer(this.$content[0]);
+    if (!this.$content.length) {
+      return this;
+    }
 
-    hammer.get('pan').set({
-      direction: Hammer.DIRECTION_HORIZONTAL,
-      threshold: 120
+    var hammer = new Hammer.Manager(this.$content[0]);
+    var swipe = new Hammer.Swipe({
+      direction: Hammer.DIRECTION_HORIZONTAL
+      // threshold: 40
     });
 
-    hammer.on('panleft', UI.utils.debounce(function(e) {
+    hammer.add(swipe);
+
+    hammer.on('swipeleft', UI.utils.debounce(function(e) {
       e.preventDefault();
-      var $target = $(e.target);
-
-      if (!$target.is(options.selector.panel)) {
-        $target = $target.closest(options.selector.panel);
-      }
-
-      $target.focus();
-
-      var $nav = me.getNextNav($target);
-      $nav && me.open($nav);
+      _this.goTo('next');
     }, 100));
 
-    hammer.on('panright', UI.utils.debounce(function(e) {
+    hammer.on('swiperight', UI.utils.debounce(function(e) {
       e.preventDefault();
-
-      var $target = $(e.target);
-
-      if (!$target.is(options.selector.panel)) {
-        $target = $target.closest(options.selector.panel);
-      }
-
-      var $nav = me.getPrevNav($target);
-
-      $nav && me.open($nav);
+      _this.goTo('prev');
     }, 100));
+
+    this._hammer = hammer;
   }
 };
 
+/**
+ * Open $nav tab
+ * @param {jQuery|HTMLElement|Number} $nav
+ * @returns {Tabs}
+ */
 Tabs.prototype.open = function($nav) {
+  var activeClass = this.options.activeClass;
+  var activeIndex = typeof $nav === 'number' ? $nav : this.$navs.index($($nav));
+
+  $nav = typeof $nav === 'number' ? this.$navs.eq(activeIndex) : $($nav);
+
   if (!$nav ||
+    !$nav.length ||
     this.transitioning ||
-    $nav.parent('li').hasClass('am-active')) {
+    $nav.parent('li').hasClass(activeClass)) {
     return;
   }
 
   var $tabNav = this.$tabNav;
-  var $navs = this.$navs;
-  var $tabContent = this.$content;
   var href = $nav.attr('href');
   var regexHash = /^#.+$/;
   var $target = regexHash.test(href) && this.$content.find(href) ||
-    this.$tabPanels.eq($navs.index($nav));
-  var previous = $tabNav.find('.am-active a')[0];
+    this.$tabPanels.eq(activeIndex);
+  var previous = $tabNav.find('.' + activeClass + ' a')[0];
   var e = $.Event('open.tabs.amui', {
     relatedTarget: previous
   });
@@ -121,23 +130,26 @@ Tabs.prototype.open = function($nav) {
   this.activate($nav.closest('li'), $tabNav);
 
   // activate Tab content
-  this.activate($target, $tabContent, function() {
+  this.activate($target, this.$content, function() {
     $nav.trigger({
       type: 'opened.tabs.amui',
       relatedTarget: previous
     });
   });
+
+  this.activeIndex = activeIndex;
 };
 
 Tabs.prototype.activate = function($element, $container, callback) {
   this.transitioning = true;
 
-  var $active = $container.find('> .am-active');
+  var activeClass = this.options.activeClass;
+  var $active = $container.find('> .' + activeClass);
   var transition = callback && supportTransition && !!$active.length;
 
-  $active.removeClass('am-active am-in');
+  $active.removeClass(activeClass + ' am-in');
 
-  $element.addClass('am-active');
+  $element.addClass(activeClass);
 
   if (transition) {
     $element.redraw(); // reflow for transition
@@ -146,74 +158,86 @@ Tabs.prototype.activate = function($element, $container, callback) {
     $element.removeClass('am-fade');
   }
 
-  function complete() {
+  var complete = $.proxy(function complete() {
     callback && callback();
     this.transitioning = false;
-  }
+  }, this);
 
-  transition ?
-    $active.one(supportTransition.end, $.proxy(complete, this)) :
-    $.proxy(complete, this)();
-
+  transition ? $active.one(supportTransition.end, complete) : complete();
 };
 
-Tabs.prototype.getNextNav = function($panel) {
-  var navIndex = this.$tabPanels.index($panel);
-  var rightSpring = 'am-animation-right-spring';
+/**
+ * Go to `next` or `prev` tab
+ * @param {String} direction - `next` or `prev`
+ */
+Tabs.prototype.goTo = function(direction) {
+  var navIndex = this.activeIndex;
+  var isNext = direction === 'next';
+  var spring = isNext ? 'am-animation-right-spring' :
+    'am-animation-left-spring';
 
-  if (navIndex + 1 >= this.$navs.length) { // last one
-    animation && $panel.addClass(rightSpring).on(animation.end, function() {
-      $panel.removeClass(rightSpring);
+  if ((isNext && navIndex + 1 >= this.$navs.length) || // last one
+    (!isNext && navIndex === 0)) { // first one
+    var $panel = this.$tabPanels.eq(navIndex);
+
+    animation && $panel.addClass(spring).on(animation.end, function() {
+      $panel.removeClass(spring);
     });
-    return null;
   } else {
-    return this.$navs.eq(navIndex + 1);
+    this.open(isNext ? navIndex + 1 : navIndex - 1);
   }
 };
 
-Tabs.prototype.getPrevNav = function($panel) {
-  var navIndex = this.$tabPanels.index($panel);
-  var leftSpring = 'am-animation-left-spring';
-
-  if (navIndex === 0) { // first one
-    animation && $panel.addClass(leftSpring).on(animation.end, function() {
-      $panel.removeClass(leftSpring);
-    });
-    return null;
-  } else {
-    return this.$navs.eq(navIndex - 1);
-  }
+Tabs.prototype.destroy = function() {
+  this.$element.off('.tabs.amui');
+  Hammer.off(this.$content[0], 'swipeleft swiperight');
+  this._hammer && this._hammer.destroy();
+  $.removeData(this.$element, 'amui.tabs');
 };
 
 // Plugin
 function Plugin(option) {
-  return this.each(function() {
+  var args = Array.prototype.slice.call(arguments, 1);
+  var methodReturn;
+
+  this.each(function() {
     var $this = $(this);
     var $tabs = $this.is('.am-tabs') && $this || $this.closest('.am-tabs');
     var data = $tabs.data('amui.tabs');
-    var options = $.extend({}, $.isPlainObject(option) ? option : {},
-      UI.utils.parseOptions($this.data('amTabs')));
+    var options = $.extend({}, UI.utils.parseOptions($this.data('amTabs')),
+      $.isPlainObject(option) && option);
 
     if (!data) {
       $tabs.data('amui.tabs', (data = new Tabs($tabs[0], options)));
     }
 
-    if (typeof option == 'string' && $this.is('.am-tabs-nav a')) {
-      data[option]($this);
+    if (typeof option === 'string') {
+      if (option === 'open' && $this.is('.am-tabs-nav a')) {
+        data.open($this);
+      } else {
+        methodReturn = typeof data[option] === 'function' ?
+          data[option].apply(data, args) : data[option];
+      }
     }
   });
+
+  return methodReturn === undefined ? this : methodReturn;
 }
 
 $.fn.tabs = Plugin;
 
 // Init code
-$(document).on('ready', function(e) {
-  $('[data-am-tabs]').tabs();
+UI.ready(function(context) {
+  $('[data-am-tabs]', context).tabs();
 });
 
-$.AMUI.tabs = Tabs;
+$(document).on('click.tabs.amui.data-api', '[data-am-tabs] .am-tabs-nav a',
+  function(e) {
+  e.preventDefault();
+  Plugin.call($(this), 'open');
+});
 
-module.exports = Tabs;
+module.exports = UI.tabs = Tabs;
 
 // TODO: 1. Ajax 支持
 //       2. touch 事件处理逻辑优化

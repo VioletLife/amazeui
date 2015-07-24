@@ -3,6 +3,8 @@
 
 图片画廊组件，用于展示图片为主体的内容。
 
+**演示图标版权归[微软 Bing](http://www.bing.com) 所有。**
+
 ## 使用方法
 
 ### 直接使用
@@ -40,7 +42,7 @@ return data;
 将大图放在 `<img>` 的 `data-rel` 属性上。
 
 `````html
-<ul data-am-widget="gallery" class="am-gallery sm-block-grid-2 am-gallery-imgbordered" data-am-gallery="{pureview: 1}">
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview: 1}">
   <li>
     <div class="am-gallery-item">
       <img src="https://farm4.staticflickr.com/3835/15329524682_2642280b33_z.jpg"
@@ -60,7 +62,7 @@ return data;
 </ul>
 `````
 ```html
-<ul data-am-widget="gallery" class="am-gallery sm-block-grid-2 am-gallery-imgbordered" data-am-gallery="{pureview: 1}">
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview: 1}">
   <li>
     <div class="am-gallery-item">
       <img src="https://farm4.staticflickr.com/3835/15329524682_2642280b33_z.jpg"
@@ -87,7 +89,7 @@ return data;
 从可访性的角度而言，这种方式更好一些：用户再禁用 JavaScript 以后仍然可以打开链接查看大图。
 
 `````html
-<ul data-am-widget="gallery" class="am-gallery sm-block-grid-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
   <li>
     <div class="am-gallery-item">
       <a href="https://farm4.staticflickr.com/3835/15329524682_554d4c0886_k.jpg" title="远方 有一个地方 那里种有我们的梦想"><img src="https://farm4.staticflickr.com/3835/15329524682_2642280b33_z.jpg"
@@ -107,7 +109,7 @@ return data;
 </ul>
 `````
 ```html
-<ul data-am-widget="gallery" class="am-gallery sm-block-grid-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{target: 'a'}}">
   <li>
     <div class="am-gallery-item">
       <a href="https://farm4.staticflickr.com/3835/15329524682_554d4c0886_k.jpg" title="远方 有一个地方 那里种有我们的梦想"><img src="https://farm4.staticflickr.com/3835/15329524682_2642280b33_z.jpg" alt="远方 有一个地方 那里种有我们的梦想"/>
@@ -121,6 +123,42 @@ return data;
         <h3 class="am-gallery-title">某天 也许会相遇 相遇在这个好地方</h3>
         <div class="am-gallery-desc">2375-09-26</div></a>
     </div>
+  </li>
+</ul>
+```
+
+## 不使用微信图片查看器
+
+如果在微信中打开时不想调用微信的图片查看器，可以通过以下选项关闭：
+
+```html
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{weChatImagePreview: false}}">
+```
+
+`````html
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{weChatImagePreview: false}}">
+  <li>
+    <div class="am-gallery-item">
+      <a href="https://farm4.staticflickr.com/3835/15329524682_554d4c0886_k.jpg" title="远方 有一个地方 那里种有我们的梦想"><img src="https://farm4.staticflickr.com/3835/15329524682_2642280b33_z.jpg"
+                                                                                                                 alt="远方 有一个地方 那里种有我们的梦想"/>
+        <h3 class="am-gallery-title">远方 有一个地方 那里种有我们的梦想</h3>
+        <div class="am-gallery-desc">2375-09-26</div></a>
+    </div>
+  </li>
+  <li>
+    <div class="am-gallery-item">
+      <a href="https://farm3.staticflickr.com/2941/15346557971_d8f3d52978_k.jpg" title="某天 也许会相遇 相遇在这个好地方"><img src="https://farm3.staticflickr.com/2941/15346557971_dec5c9ac36_z.jpg"
+                                                                                                                alt="某天 也许会相遇 相遇在这个好地方"/>
+        <h3 class="am-gallery-title">某天 也许会相遇 相遇在这个好地方</h3>
+        <div class="am-gallery-desc">2375-09-26</div></a>
+    </div>
+  </li>
+</ul>
+`````
+```html
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered" data-am-gallery="{pureview:{weChatImagePreview: false}}">
+  <li>
+    ...
   </li>
 </ul>
 ```
@@ -146,9 +184,10 @@ return data;
   //内容（*为必备项）
   "content": [
     {
-      "img": "",
+      "img": "", // *
       "link": "", // 链接
-      "title": "", // 图片标题
+      "title": "", // *图片标题
+      "className": "", // 仅在设置了 link 后有效
       "desc": "" // 附加信息，支持DOM，为高级定制提供DOM接口
     }
   ]

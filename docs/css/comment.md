@@ -34,7 +34,7 @@
 `````html
 <article class="am-comment">
   <a href="#link-to-user-home">
-    <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
+    <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
   </a>
 
   <div class="am-comment-main">
@@ -43,6 +43,10 @@
       <div class="am-comment-meta">
           <a href="#link-to-user" class="am-comment-author">某人</a>
         评论于 <time datetime="2013-07-27T04:54:29-07:00" title="2013年7月27日 下午7:54 格林尼治标准时间+0800">2014-7-12 15:30</time>
+      </div>
+      <div class="am-comment-actions">
+        <a href=""><i class="am-icon-pencil"></i></a>
+        <a href=""><i class="am-icon-close"></i></a>
       </div>
     </header>
 
@@ -54,9 +58,16 @@
         妈：我打算在下个月和樱子结婚。
       </blockquote>
     </div>
+    <footer class="am-comment-footer">
+      <div class="am-comment-actions">
+        <a href=""><i class="am-icon-thumbs-up"></i></a>
+        <a href=""><i class="am-icon-thumbs-down"></i></a>
+        <a href=""><i class="am-icon-reply"></i></a>
+      </div>
+    </footer>
   </div>
 </article>
-```
+`````
 
 ```html
 <article class="am-comment">
@@ -91,7 +102,7 @@
 <ul class="am-comments-list am-comments-list-flip">
   <li class="am-comment">
     <a href="#link-to-user-home">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
     </a>
 
     <div class="am-comment-main">
@@ -160,7 +171,7 @@
 
   <li class="am-comment am-comment-flip am-comment-secondary">
     <a href="#link-to-user-home">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
     </a>
 
     <div class="am-comment-main">
@@ -200,7 +211,7 @@
 
   <li class="am-comment am-comment-flip am-comment-danger">
     <a href="#link-to-user-home">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
     </a>
 
     <div class="am-comment-main">
@@ -239,7 +250,7 @@
 
   <li class="am-comment am-comment-flip am-comment-success">
     <a href="#link-to-user-home">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/96/h/96" alt="" class="am-comment-avatar" width="48" height="48"/>
     </a>
 
     <div class="am-comment-main">

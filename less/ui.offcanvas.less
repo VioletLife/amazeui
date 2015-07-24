@@ -28,7 +28,7 @@
 
 /* Off-canvas overlay and bar container */
 
-.am-offcanvas {
+.@{ns}offcanvas {
   display: none;
   position: fixed;
   top: 0;
@@ -40,36 +40,33 @@
 
   .hook-offcanvas;
 
-  &.am-active {
+  &.@{ns}active {
     display: block;
   }
 }
 
 
 /**
- * .am-offcanvas-page
+ * .@{ns}offcanvas-page
  *
  * Prepares the whole HTML page to slide-out
  * 1. Fix the main page and disallow scrolling
  * 2. Side-out transition
  */
 
-.am-offcanvas-page {
+.@{ns}offcanvas-page {
   position: fixed;   /* 1 */
-  /* 2 */
-  -webkit-transition: margin-left 0.3s ease-in-out;
-  transition: margin-left 0.3s ease-in-out;
+  transition: margin-left .3s ease-in-out; /* 2 */
 }
 
 
-/* Sub-object .am-offcanvas-bar */
+/* Sub-object .@{ns}offcanvas-bar */
 
-.am-offcanvas-bar {
+.@{ns}offcanvas-bar {
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
-  .translate(-100%, 0);
   z-index: @z-index-offcanvas + 1;
   width: @offcanvas-bar-width;
   max-width: 100%;
@@ -77,9 +74,8 @@
 
   overflow-y: auto;  /* scrollable */
   -webkit-overflow-scrolling: touch; /* scrollable */
-
-  -webkit-transition: -webkit-transform 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transform: translateX(-100%);
 
   &:after {
     content: "";
@@ -96,26 +92,27 @@
   .hook-offcanvas-bar;
 }
 
-.am-offcanvas.am-active .am-offcanvas-bar.am-offcanvas-bar-active {
-  .translate(0, 0);
+.@{ns}offcanvas.@{ns}active .@{ns}offcanvas-bar.@{ns}offcanvas-bar-active {
+  transform: translateX(0);
 }
 
 
-/* .am-offcanvas-bar-flip */
-
-.am-offcanvas-bar-flip {
+/* .@{ns}offcanvas-bar-flip */
+.@{ns}offcanvas-bar-flip {
   left: auto;
   right: 0;
-  .translate(100%, 0);
+  transform: translateX(100%);
+
   &:after {
     right: auto;
     left: 0;
   }
 }
 
-.am-offcanvas-content {
+.@{ns}offcanvas-content {
   padding: 15px;
   color: #999;
+
   a {
     color: #ccc;
   }

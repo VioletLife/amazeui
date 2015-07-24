@@ -1,10 +1,10 @@
 'use strict';
 
 var $ = require('jquery');
-require('./core');
-require('./ui.offcanvas');
-require('./ui.collapse');
-var IScroll = require('./ui.iscroll-lite');
+var UI = require('../../../js/core');
+var IScroll = require('../../../js/ui.iscroll-lite');
+require('../../../js/ui.offcanvas');
+require('../../../js/ui.collapse');
 
 var menuInit = function() {
   var $menus = $('[data-am-widget="menu"]');
@@ -143,11 +143,9 @@ var menuInit = function() {
   });
 };
 
-$(function() {
-  menuInit();
-});
+$(menuInit);
 
-module.exports = $.AMUI.menu = {
-  VERSION: '4.0.0',
+module.exports = UI.menu = {
+  VERSION: '4.0.3',
   init: menuInit
 };

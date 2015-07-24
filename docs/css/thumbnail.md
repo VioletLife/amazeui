@@ -1,6 +1,9 @@
 # Thumbnail
 ---
+
 Thumbnail 组件主要用于显示图片列表及图文混排列表。
+
+**演示图标版权归[微软 Bing](http://www.bing.com) 所有。**
 
 ## 基本样式
 
@@ -10,18 +13,18 @@ Thumbnail 组件主要用于显示图片列表及图文混排列表。
 
 `````html
 <div class="am-g">
-  <div class="col-sm-4">
-    <img class="am-thumbnail" src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+  <div class="am-u-sm-4">
+    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
   </div>
 
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <a href="#" class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" alt=""/>
     </a>
   </div>
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <figure class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-3.jpg" alt=""/>
     </figure>
   </div>
 </div>
@@ -29,17 +32,17 @@ Thumbnail 组件主要用于显示图片列表及图文混排列表。
 
 ```html
 <div class="am-g">
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <img class="am-thumbnail" src="..." alt=""/>
   </div>
 
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <a href="#" class="am-thumbnail">
       <img src="..." alt=""/>
     </a>
   </div>
 
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <figure class="am-thumbnail">
       <img src="..." alt=""/>
     </figure>
@@ -47,29 +50,29 @@ Thumbnail 组件主要用于显示图片列表及图文混排列表。
 </div>
 ```
 
-### 结合 Block Grid 使用
+### 结合 AVG Grid 使用
 
-Block Grid 默认没有边距，需自行设置。
+添加 AVG Grid class 同时添加 `.am-thumbnails`。
 
 `````html
-<ul class="sm-block-grid-3">
-  <li><img class="am-thumbnail" src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg"
+<ul class="am-avg-sm-3 am-thumbnails">
+  <li><img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg"
            alt=""/></li>
 
   <li><a href="#" class="am-thumbnail">
-    <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+    <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
   </a></li>
 
   <li>
     <figure class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
     </figure>
   </li>
 </ul>
 `````
 
 ```html
-<ul class="sm-block-grid-3">
+<ul class="am-avg-sm-3 am-thumbnails">
   <li>
     <img class="am-thumbnail" src="..." alt=""/>
   </li>
@@ -92,22 +95,22 @@ Block Grid 默认没有边距，需自行设置。
 
 `````html
 <div class="am-g">
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <div class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
       <h3 class="am-thumbnail-caption">图片标题 #1</h3>
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <a href="#" class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
       <figcaption class="am-thumbnail-caption">图片标题 #2</figcaption>
     </a>
   </div>
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <figure class="am-thumbnail">
-      <img src="http://www.bing.com/az/hprichbg/rb/AdelaideFrog_EN-US12171255358_1366x768.jpg" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
       <figcaption class="am-thumbnail-caption">图片标题 #3</figcaption>
     </figure>
   </div>
@@ -116,20 +119,20 @@ Block Grid 默认没有边距，需自行设置。
 
 ```html
 <div class="am-g">
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <div class="am-thumbnail">
       <img src="..." alt=""/>
       <h3 class="am-thumbnail-caption">图片标题 #1</h3>
     </div>
   </div>
 
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <a href="#" class="am-thumbnail">
       <img src="..." alt=""/>
       <figcaption class="am-thumbnail-caption">图片标题 #2</figcaption>
     </a>
   </div>
-  <div class="col-sm-4">
+  <div class="am-u-sm-4">
     <figure class="am-thumbnail">
       <img src="..." alt=""/>
       <figcaption class="am-thumbnail-caption">图片标题 #3</figcaption>
@@ -146,9 +149,9 @@ Block Grid 默认没有边距，需自行设置。
 
 `````html
 <div class="am-g">
-  <div class="col-sm-6">
+  <div class="am-u-sm-6">
     <div class="am-thumbnail">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView2/0/w/600" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView2/0/w/600" alt=""/>
       <div class="am-thumbnail-caption">
         <h3>百年孤独选</h3>
         <p>无论走到哪里，都应该记住，过去都是假的，回忆是一条没有尽头的路，一切以往的春天都不复存在，就连那最坚韧而又狂乱的爱情归根结底也不过是一种转瞬即逝的现实。</p>
@@ -160,9 +163,9 @@ Block Grid 默认没有边距，需自行设置。
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="am-u-sm-6">
     <div class="am-thumbnail">
-      <img src="http://amui.qiniudn.com/bw-2014-06-19.jpg?imageView2/0/w/600" alt=""/>
+      <img src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView2/0/w/600" alt=""/>
       <div class="am-thumbnail-caption">
         <h3>百年孤独选</h3>
         <p>无论走到哪里，都应该记住，过去都是假的，回忆是一条没有尽头的路，一切以往的春天都不复存在，就连那最坚韧而又狂乱的爱情归根结底也不过是一种转瞬即逝的现实。</p>
@@ -178,7 +181,7 @@ Block Grid 默认没有边距，需自行设置。
 `````
 ```html
 <div class="am-g">
-  <div class="col-sm-6">
+  <div class="am-u-sm-6">
     <div class="am-thumbnail">
       <img src="..." alt=""/>
       <div class="am-thumbnail-caption">
@@ -192,7 +195,7 @@ Block Grid 默认没有边距，需自行设置。
     </div>
   </div>
 
-  <div class="col-sm-6">
+  <div class="am-u-sm-6">
     <div class="am-thumbnail">
       <img src="..." alt=""/>
       <div class="am-thumbnail-caption">

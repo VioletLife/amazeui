@@ -1,14 +1,13 @@
 'use strict';
 
 var $ = require('jquery');
-require('./core');
-require('./ui.pureview');
-var IScroll = require('./ui.iscroll-lite');
-var UI = $.AMUI;
+var UI = require('../../../js/core');
+var IScroll = require('../../../js/ui.iscroll-lite');
+require('../../../js/ui.pureview');
 
 /**
  * 表格滚动
- * @param index ID 标识，多个 paragraph 里面多个 table
+ * @param {number} index ID 标识，多个 paragraph 里面多个 table
  */
 $.fn.scrollTable = function(index) {
   var $this = $(this);
@@ -52,11 +51,9 @@ function paragraphInit() {
   });
 }
 
-$(window).on('load', function() {
-  paragraphInit();
-});
+$(window).on('load', paragraphInit);
 
-module.exports = $.AMUI.paragraph = {
-  VERSION: '2.0.0',
+module.exports = UI.paragraph = {
+  VERSION: '2.0.1',
   init: paragraphInit
 };

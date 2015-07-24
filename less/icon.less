@@ -11,7 +11,9 @@
 // Modifiers:                `am-icon-sm`
 //                           `am-icon-md`
 //                           `am-icon-lg`
+//                           `am-icon-fw`
 //                           `am-icon-spin`
+//                           `am-icon-pulse`
 //
 // Uses:                     Animation
 //
@@ -22,9 +24,10 @@
 // =============================================================================
 
 //@fa-font-path: "../fonts";
-@fa-font-path: 'http://cdn.staticfile.org/font-awesome/4.2.0/fonts';
-@fa-css-prefix: am-icon;
-@fa-version: '4.2.0';
+// https://github.com/staticfile/static/issues/11
+@fa-font-path: '//dn-amui.qbox.me/font-awesome/4.3.0/fonts';
+@fa-css-prefix: ~"@{ns}icon";
+@fa-version: '4.3.0';
 @fa-border-color: #eee;
 @fa-inverse: #fff;
 @fa-li-width: (30em / 14);
@@ -39,11 +42,12 @@
 
 @font-face {
   font-family: 'FontAwesome';
-  src: ~"url('@{fa-font-path}/fontawesome-webfont.eot?v=@{fa-version}')";
-  src: ~"url('@{fa-font-path}/fontawesome-webfont.eot?#iefix&v=@{fa-version}') format('embedded-opentype')",
-  ~"url('@{fa-font-path}/fontawesome-webfont.woff?v=@{fa-version}') format('woff')",
-  ~"url('@{fa-font-path}/fontawesome-webfont.ttf?v=@{fa-version}') format('truetype')",
-  ~"url('@{fa-font-path}/fontawesome-webfont.svg?v=@{fa-version}#fontawesomeregular') format('svg')";
+  src: url('@{fa-font-path}/fontawesome-webfont.eot?v=@{fa-version}');
+  src: url('@{fa-font-path}/fontawesome-webfont.eot?#iefix&v=@{fa-version}') format('embedded-opentype'),
+  url('@{fa-font-path}/fontawesome-webfont.woff2?v=@{fa-version}') format('woff2'),
+  url('@{fa-font-path}/fontawesome-webfont.woff?v=@{fa-version}') format('woff'),
+  url('@{fa-font-path}/fontawesome-webfont.ttf?v=@{fa-version}') format('truetype'),
+  url('@{fa-font-path}/fontawesome-webfont.svg?v=@{fa-version}#fontawesomeregular') format('svg');
   //  src: url('@{fa-font-path}/FontAwesome.otf') format('opentype'); // used when developing fonts
   font-weight: normal;
   font-style: normal;
@@ -53,11 +57,12 @@
 /* Component
 ============================================================================= */
 
-[class*='am-icon-'] {
+[class*="@{ns}icon-"] {
   display: inline-block;
-  .am-icon-font;
+  &:before {
+    .am-icon-font;
+  }
 }
-
 
 // Bordered & Pulled
 // -----------------------------------------------------------------------------
@@ -68,31 +73,35 @@
   border-radius: .1em;
 }
 
-[class*='am-icon-'] {
-  &.am-fl { margin-right: .3em; }
-  &.am-fr { margin-left: .3em; }
+[class*="@{ns}icon-"] {
+  &.@{ns}fl {
+    margin-right: .3em;
+  }
+  &.@{ns}fr {
+    margin-left: .3em;
+  }
 }
 
 
 // Size modifiers
 // =============================================================================
 
-.am-icon-sm:before {
+.@{ns}icon-sm:before {
   font-size: @icon-sm-font-size;
   vertical-align: @icon-sm-vertical-align;
 }
 
-.am-icon-md:before {
+.@{ns}icon-md:before {
   font-size: @icon-md-font-size;
   vertical-align: @icon-md-vertical-align;
 }
 
-.am-icon-lg:before {
+.@{ns}icon-lg:before {
   font-size: @icon-lg-font-size;
   vertical-align: @icon-lg-vertical-align;
 }
 
-.icon-btn-size(@width: 40px; @height: 40px; @font-size: 20px) {
+.icon-btn-size(@width: 40rem; @height: 40px; @font-size: 20px) {
   width: @width;
   height: @height;
   font-size: @font-size;
@@ -103,14 +112,12 @@
 /* Modifier: `.am-icon-btn`
 ============================================================================= */
 
-.am-icon-btn {
-  .box-sizing(border-box);
+.@{ns}icon-btn {
+  box-sizing: border-box;
   display: inline-block;
-  width: @icon-btn-width;
-  height: @icon-btn-height;
   .icon-btn-size(@icon-btn-width; @icon-btn-height; @icon-btn-font-size);
   border-radius: @icon-btn-border-radius;
-  background: @icon-btn-background;
+  background-color: @icon-btn-background;
   color: @icon-btn-color;
   text-align: center;
 
@@ -136,6 +143,50 @@
     color: @icon-btn-active-color;
     .hook-icon-btn-active;
   }
+
+  &.@{ns}primary,
+  &.@{ns}secondary,
+  &.@{ns}success,
+  &.@{ns}warning,
+  &.@{ns}danger {
+    color: @white;
+  }
+
+  &.@{ns}primary {
+    background-color: @global-primary;
+  }
+
+  &.@{ns}secondary {
+    background-color: @global-secondary;
+  }
+
+  &.@{ns}success {
+    background-color: @global-success;
+  }
+
+  &.@{ns}warning {
+    background-color: @global-warning;
+  }
+
+  &.@{ns}danger {
+    background-color: @global-danger;
+  }
+}
+
+.@{ns}icon-btn-sm {
+  .icon-btn-size(32px; 32px; 16px);
+}
+
+.@{ns}icon-btn-lg {
+  .icon-btn-size(64px; 64px; 28px);
+}
+
+
+/* Modifier: `.am-icon-fw` Fixed width
+============================================================================= */
+.@{ns}icon-fw {
+  width: (20em/16);
+  text-align: center;
 }
 
 
@@ -734,6 +785,7 @@
   content: @fa-var-twitter;
 }
 
+.@{fa-css-prefix}-facebook-f:before,
 .@{fa-css-prefix}-facebook:before {
   content: @fa-var-facebook;
 }
@@ -1588,8 +1640,9 @@
   content: @fa-var-male;
 }
 
-.@{fa-css-prefix}-gittip:before {
-  content: @fa-var-gittip;
+.@{fa-css-prefix}-gittip:before,
+.@{fa-css-prefix}-gratipay:before {
+  content: @fa-var-gratipay;
 }
 
 .@{fa-css-prefix}-sun-o:before {
@@ -1937,6 +1990,7 @@
   content: @fa-var-history;
 }
 
+.@{fa-css-prefix}-genderless:before,
 .@{fa-css-prefix}-circle-thin:before {
   content: @fa-var-circle-thin;
 }
@@ -2128,23 +2182,187 @@
   content: @fa-var-meanpath;
 }
 
+.@{fa-css-prefix}-buysellads:before {
+  content: @fa-var-buysellads;
+}
+
+.@{fa-css-prefix}-connectdevelop:before {
+  content: @fa-var-connectdevelop;
+}
+
+.@{fa-css-prefix}-dashcube:before {
+  content: @fa-var-dashcube;
+}
+
+.@{fa-css-prefix}-forumbee:before {
+  content: @fa-var-forumbee;
+}
+
+.@{fa-css-prefix}-leanpub:before {
+  content: @fa-var-leanpub;
+}
+
+.@{fa-css-prefix}-sellsy:before {
+  content: @fa-var-sellsy;
+}
+
+.@{fa-css-prefix}-shirtsinbulk:before {
+  content: @fa-var-shirtsinbulk;
+}
+
+.@{fa-css-prefix}-simplybuilt:before {
+  content: @fa-var-simplybuilt;
+}
+
+.@{fa-css-prefix}-skyatlas:before {
+  content: @fa-var-skyatlas;
+}
+
+.@{fa-css-prefix}-cart-plus:before {
+  content: @fa-var-cart-plus;
+}
+
+.@{fa-css-prefix}-cart-arrow-down:before {
+  content: @fa-var-cart-arrow-down;
+}
+
+.@{fa-css-prefix}-diamond:before {
+  content: @fa-var-diamond;
+}
+
+.@{fa-css-prefix}-ship:before {
+  content: @fa-var-ship;
+}
+
+.@{fa-css-prefix}-user-secret:before {
+  content: @fa-var-user-secret;
+}
+
+.@{fa-css-prefix}-motorcycle:before {
+  content: @fa-var-motorcycle;
+}
+
+.@{fa-css-prefix}-street-view:before {
+  content: @fa-var-street-view;
+}
+
+.@{fa-css-prefix}-heartbeat:before {
+  content: @fa-var-heartbeat;
+}
+
+.@{fa-css-prefix}-venus:before {
+  content: @fa-var-venus;
+}
+
+.@{fa-css-prefix}-mars:before {
+  content: @fa-var-mars;
+}
+
+.@{fa-css-prefix}-mercury:before {
+  content: @fa-var-mercury;
+}
+
+.@{fa-css-prefix}-transgender:before {
+  content: @fa-var-transgender;
+}
+
+.@{fa-css-prefix}-transgender-alt:before {
+  content: @fa-var-transgender-alt;
+}
+
+.@{fa-css-prefix}-venus-double:before {
+  content: @fa-var-venus-double;
+}
+
+.@{fa-css-prefix}-mars-double:before {
+  content: @fa-var-mars-double;
+}
+
+.@{fa-css-prefix}-venus-mars:before {
+  content: @fa-var-venus-mars;
+}
+
+.@{fa-css-prefix}-mars-stroke:before {
+  content: @fa-var-mars-stroke;
+}
+
+.@{fa-css-prefix}-mars-stroke-v:before {
+  content: @fa-var-mars-stroke-v;
+}
+
+.@{fa-css-prefix}-mars-stroke-h:before {
+  content: @fa-var-mars-stroke-h;
+}
+
+.@{fa-css-prefix}-neuter:before {
+  content: @fa-var-neuter;
+}
+
+.@{fa-css-prefix}-facebook-official:before {
+  content: @fa-var-facebook-official;
+}
+
+.@{fa-css-prefix}-pinterest-p:before {
+  content: @fa-var-pinterest-p;
+}
+
+.@{fa-css-prefix}-whatsapp:before {
+  content: @fa-var-whatsapp;
+}
+
+.@{fa-css-prefix}-server:before {
+  content: @fa-var-server;
+}
+
+.@{fa-css-prefix}-user-plus:before {
+  content: @fa-var-user-plus;
+}
+
+.@{fa-css-prefix}-user-times:before {
+  content: @fa-var-user-times;
+}
+
+.@{fa-css-prefix}-hotel:before,
+.@{fa-css-prefix}-bed:before {
+  content: @fa-var-bed;
+}
+
+.@{fa-css-prefix}-viacoin:before {
+  content: @fa-var-viacoin;
+}
+
+.@{fa-css-prefix}-train:before {
+  content: @fa-var-train;
+}
+
+.@{fa-css-prefix}-subway:before {
+  content: @fa-var-subway;
+}
+
+.@{fa-css-prefix}-medium:before {
+  content: @fa-var-medium;
+}
 
 /* Modifier: `am-icon-spin`
 ============================================================================= */
 
-@-webkit-keyframes icon-spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(359deg); }
-}
 @keyframes icon-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(359deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(359deg);
+  }
 }
 
 .am-icon-spin {
-  .animation(icon-spin 2s infinite linear);
+  animation: icon-spin 2s infinite linear;
 }
 
+.am-icon-pulse {
+  animation: icon-spin 1s infinite steps(8);
+}
 
 // List Icons
 // -----------------------------------------------------------------------------

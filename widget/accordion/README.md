@@ -149,7 +149,13 @@ return data;
       "title": "", // 标题，支持 html
       "content": "", // 内容，支持 html
       "active": false // 是否激活当前面板，如果需要激活则设置为 true，否则可不用设置此项
+      // Amaze UI 2.3 新增
+      "disabled": null // 是否禁用当前面板，如果需要禁用则设置为 true，否则不用设置此项，禁用以后此面板将保持默认状态，不响应用户操作
     }
   ]
 }
 ```
+
+## 注意事项
+
+- **不要在 `.am-accordion-bd` 上添加上下 `padding`/`margin`/`border` 样式**。

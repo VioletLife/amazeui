@@ -3,7 +3,7 @@
   */
 
 .am-gotop-fixed {
-  @gotop-border-radius: @global-border-radius;
+  @gotop-border-radius: @global-radius;
   @gotop-icon-bg: @gray;
   @gotop-icon-color: #ddd;
   @gotop-icon-hover-color: #fff;
@@ -27,8 +27,6 @@
       opacity: 1;
     }
   }
-
-
 
   a {
     display: block;
@@ -54,6 +52,10 @@
     &:hover {
       color: @gotop-icon-hover-color;
     }
+  }
+
+  .am-with-fixed-navbar & {
+    bottom: 60px;
   }
 
   .hook-am-gotop-fixed;

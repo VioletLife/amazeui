@@ -20,12 +20,20 @@ vendor/less.js/
 tools/app/public/style.css
 
 # build
+.sass-cache
 .build
+.cstmz-tmp
 dist/css
 dist/js
+dist/fonts
+dist/sass
+/js/amazeui.js
 less/amazeui.widgets.less
-js/amazeui.js
 
 # zip tmp files
 docs/examples/assets/css/amazeui*.css
-docs/examples/assets/js/amazeui*.js
+docs/examlsples/assets/js/amazeui*.js
+
+#customize
+tools/tasks/config.json
+dist/customized

@@ -1,3 +1,13 @@
+---
+id: popover
+title: 弹出框
+titleEn: Popover
+prev: javascript/modal.html
+next: javascript/nprogress.html
+source: js/ui.popover.js
+doc: docs/javascript/popover.md
+---
+
 # Popover
 ---
 
@@ -27,6 +37,55 @@ Tooltip 效果。
 <button class="am-btn am-btn-success"
         data-am-popover="{content: '鄙是点击 Hover 显示的 Popover', trigger: 'hover focus'}">
   Hover 显示 Popover
+</button>
+```
+
+### 颜色/尺寸
+
+通过 `theme` 选项可以设置 Popover 的颜色和尺寸。
+
+`````html
+<!--蓝色的 Popover-->
+<button
+  class="am-btn am-btn-primary"
+  data-am-popover="{theme: 'primary', content: '点击显示的 Primary'}">
+  Primary
+</button>
+
+<!--红色、sm Popover-->
+<button
+  class="am-btn am-btn-secondary"
+  data-am-popover="{theme: 'danger sm', content: '点击显示的 Danger & Small'}">
+  Danger
+</button>
+
+<!--警示、lg Popover-->
+<button
+  class="am-btn am-btn-warning"
+  data-am-popover="{theme: 'warning lg', content: '点击显示的 Danger & Small'}">
+  Warning
+</button>
+`````
+```html
+<!--蓝色的 Popover-->
+<button
+  class="am-btn am-btn-primary"
+  data-am-popover="{theme: 'primary', content: '点击显示的 Primary'}">
+  Primary
+</button>
+
+<!--红色、sm Popover-->
+<button
+  class="am-btn am-btn-secondary"
+  data-am-popover="{theme: 'danger sm', content: '点击显示的 Danger & Small'}">
+  Danger
+</button>
+
+<!--警示、lg Popover-->
+<button
+  class="am-btn am-btn-warning"
+  data-am-popover="{theme: 'warning lg', content: '点击显示的 Danger & Small'}">
+  Warning
 </button>
 ```
 
@@ -68,27 +127,13 @@ $(function() {
 
 #### 参数说明
 
-<table class="am-table am-table-bd am-table-striped">
-  <thead>
-  <tr>
-    <th>参数</th>
-    <th>类型</th>
-    <th>描述</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td><code>content</code></td>
-    <td><code>string</code></td>
-    <td>Popover 显示的内容</td>
-  </tr>
-  <tr>
-    <td><code>trigger</code></td>
-    <td><code>string</code></td>
-    <td>交互方式，<code>click|hover|focus</code>，默认为 <code>click</code></td>
-  </tr>
-  </tbody>
-</table>
+| 参数 | 类型 | 描述 |
+| --- |  --- | --- |
+| `content` | `string` | Popover 显示的内容
+| `trigger` | `string` | 交互方式，`click` / `hover` / `focus`，默认为 `click`|
+|`theme`|`string`| Popover 样式，颜色：`primary` / `secondary` / `success` / `warning` / `danger`；尺寸： `sm` / `lg`。同时设置颜色和尺寸使用一个半角空格 ` ` 分隔。|
+
+
 
 #### 方法
 
@@ -96,12 +141,13 @@ $(function() {
 - `.popover('toggle')` - 交替 Popover 状态
 - `.popover('open')` - 显示 Popover
 - `.popover('close')` - 关闭 Popover
+- `.popover('setContent', content)` - 设置弹出层内容 <span class="am-badge am-badge-danger">v2.4.1+</span>
 
 #### 自定义事件
 
 事件定义在触发 Popover 交互的元素上。
 
-<table class="am-table am-table-bd am-table-striped">
+<table class="am-table am-table-bordered am-table-striped">
   <thead>
   <tr>
     <th>事件名称</th>

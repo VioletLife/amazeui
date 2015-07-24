@@ -388,16 +388,17 @@ __有序列表（`<ol>`）：__
 更多样式查看 [Image 组件](/css/image)。
 
 `````html
-<img src="http://s.cn.bing.net/az/hprichbg/rb/DongBaSymbols_ZH-CN10223363633_1366x768.jpg" alt=""/>
+<img class="am-img-responsive" src="http://7jpqbr.com1.z0.glb.clouddn.com/bing-1.jpg" alt=""/>
 `````
 
 ```html
-<img src="http://s.cn.bing.net/az/hprichbg/rb/DongBaSymbols_ZH-CN10223363633_1366x768.jpg" alt=""/>
+<img class="am-img-responsive" src="http://7jpqbr.com1.z0.glb.clouddn.com/bing-1.jpg" alt=""/>
+
 ```
 
 ### 其他元素
 
-<table class="am-table am-table-bd am-table-hover am-table-striped">
+<table class="am-table am-table-bordered am-table-hover am-table-striped">
   <thead>
   <tr>
     <th>元素</th>

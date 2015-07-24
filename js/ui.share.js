@@ -27,7 +27,7 @@ Share.DEFAULTS = {
   via: 'Amaze UI',
   tpl: '<div class="am-share am-modal-actions" id="<%= id %>">' +
   '<h3 class="am-share-title"><%= title %></h3>' +
-  '<ul class="am-share-sns sm-block-grid-3">' +
+  '<ul class="am-share-sns am-avg-sm-3">' +
   '<% for(var i = 0; i < sns.length; i++) {%>' +
   '<li>' +
   '<a href="<%= sns[i].shareUrl %>" ' +
@@ -318,9 +318,9 @@ Share.prototype.wechatQr = function() {
     '<div class="am-share-wx-qr"></div>' +
     '<div class="am-share-wechat-tip">' +
     '打开微信，点击底部的<em>发现</em>，<br/> ' +
-    '使用<em>扫一扫</em>将网页分享至朋友圈</div></div></div></div>', {
-      id: qrId
-    });
+    '使用<em>扫一扫</em>将网页分享至朋友圈</div></div></div></div>');
+
+    $qr.attr('id', qrId);
 
     var qrNode = new QRCode({
       render: 'canvas',
@@ -349,6 +349,4 @@ $doc.on('click.share.amui.data-api', '[data-am-toggle="share"]', function(e) {
   share.toggle();
 });
 
-$.AMUI.share = share;
-
-module.exports = share;
+module.exports = UI.share = share;

@@ -13,7 +13,7 @@ var Dimmer = function() {
 
   this.inited = false;
   this.scrollbarWidth = 0;
-  this.used = $([]);
+  this.$used = $([]);
 };
 
 Dimmer.DEFAULTS = {
@@ -25,6 +25,9 @@ Dimmer.prototype.init = function() {
     $(document.body).append(this.$element);
     this.inited = true;
     $doc.trigger('init.dimmer.amui');
+    this.$element.on('touchmove.dimmer.amui', function(e) {
+      e.preventDefault();
+    });
   }
 
   return this;
@@ -39,12 +42,14 @@ Dimmer.prototype.open = function(relatedElement) {
 
   // 用于多重调用
   if (relatedElement) {
-    this.used = this.used.add($(relatedElement));
+    this.$used = this.$used.add($(relatedElement));
   }
 
   this.checkScrollbar().setScrollbar();
 
   $element.show().trigger('open.dimmer.amui');
+
+  transition && $element.off(transition.end);
 
   setTimeout(function() {
     $element.addClass('am-active');
@@ -54,9 +59,9 @@ Dimmer.prototype.open = function(relatedElement) {
 };
 
 Dimmer.prototype.close = function(relatedElement, force) {
-  this.used = this.used.not($(relatedElement));
+  this.$used = this.$used.not($(relatedElement));
 
-  if (!force && this.used.length) {
+  if (!force && this.$used.length) {
     return this;
   }
 
@@ -65,12 +70,12 @@ Dimmer.prototype.close = function(relatedElement, force) {
   $element.removeClass('am-active').trigger('close.dimmer.amui');
 
   function complete() {
-    this.resetScrollbar();
     $element.hide();
+    this.resetScrollbar();
   }
 
-  transition ? $element.one(transition.end, $.proxy(complete, this)) :
-    complete.call(this);
+  // transition ? $element.one(transition.end, $.proxy(complete, this)) :
+  complete.call(this);
 
   return this;
 };
@@ -100,8 +105,4 @@ Dimmer.prototype.resetScrollbar = function() {
   return this;
 };
 
-var dimmer = new Dimmer();
-
-$.AMUI.dimmer = dimmer;
-
-module.exports = dimmer;
+module.exports = UI.dimmer = new Dimmer();
